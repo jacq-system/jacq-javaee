@@ -61,7 +61,7 @@ public abstract class BaseDerivativeManager {
      */
     protected static final String FILTER_TYPE = "`type` = ?";
     protected static final String FILTER_DERIVATIVEID = "`derivative_id` = ?";
-    protected static final String FILTER_PLACENUMBER = "`place_number` = ?";
+    protected static final String FILTER_PLACENUMBER = "`place_number` LIKE ?";
     protected static final String FILTER_ACCESSIONNUMBER = "`accession_number` = ?";
     protected static final String FILTER_SEPARATED = "`separated` = ?";
     protected static final String FILTER_SCIENTIFIC_NAME_ID = "`scientific_name_id` = ?";
@@ -228,6 +228,7 @@ public abstract class BaseDerivativeManager {
         }
         if (!StringUtils.isEmpty(placeNumber)) {
             queryString += " AND " + FILTER_PLACENUMBER;
+            placeNumber = placeNumber + "%";
             params.add(placeNumber);
         }
         if (!StringUtils.isEmpty(accessionNumber)) {
