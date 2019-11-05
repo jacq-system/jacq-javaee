@@ -72,7 +72,7 @@
                                         </p:autoComplete>
                                     </div>
                                     <div class="ui-g-1 ui-g-nopad">
-                                        <p:commandButton type="button" icon="ui-icon-search" id="hierachicSearchButton" />
+                                        <p:commandButton icon="ui-icon-search" id="hierachicSearchButton" />
                                     </div>
                                 </div>
                                 <div class="ui-g-3">
@@ -104,7 +104,8 @@
                             <div class="ui-g">
                                 <div class="ui-g-6">
                                     <div class="jacq-buttons">
-                                        <p:commandButton type="submit" id="searchButton" value="#{messages['search']}" update="jacq_seedexchange-search" />
+                                        <p:commandButton id="searchButton" value="#{messages['search']}" update="jacq_seedexchange-search" />
+                                        <p:defaultCommand target="searchButton" />
                                     </div>
                                 </div>
                             </div>
@@ -204,6 +205,10 @@
 
                         <p:column headerText="#{messages['livingplant.scientificname']}">
                             <h:outputText value="#{botanicalObjectDerivative.scientificName}" />
+                        </p:column>
+
+                        <p:column headerText="#{messages['livingplant.cultivarname']}">
+                            <h:outputText value="#{botanicalObjectDerivative.cultivarName}" />
                         </p:column>
 
                         <p:column headerText="#{messages['action']}" rendered="#{(seedExchangeEditController.seedOrderResult.seedOrderId == null)}">

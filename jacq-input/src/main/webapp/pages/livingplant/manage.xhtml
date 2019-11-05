@@ -369,6 +369,14 @@
                                 <h:outputText value="#{botanicalObjectDownloadResult.cultivarName}" />
                             </p:column>
 
+                            <p:column headerText="#{messages['livingplant.count']}">
+                                <h:outputText value="#{botanicalObjectDownloadResult.count}" />
+                            </p:column>
+
+                            <p:column headerText="#{messages['livingplant.price']}">
+                                <h:outputText value="#{botanicalObjectDownloadResult.price}" />
+                            </p:column>
+
                         </p:dataTable>
                     </h:panelGroup>
                 </div>
