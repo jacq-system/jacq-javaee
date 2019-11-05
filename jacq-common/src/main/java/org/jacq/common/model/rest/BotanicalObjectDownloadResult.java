@@ -55,6 +55,8 @@ public class BotanicalObjectDownloadResult extends BotanicalObjectDerivative {
     protected String familyNoAuthor;
     protected String familyReference;
     protected String indexSeminumType;
+    protected long count;
+    protected float price;
 
     public BotanicalObjectDownloadResult() {
     }
@@ -148,6 +150,9 @@ public class BotanicalObjectDownloadResult extends BotanicalObjectDerivative {
             this.setPerson(this.getPerson().replaceAll(", $", ""));
         }
 
+        // count & price
+        this.setCount(derivative.getCount());
+        this.setPrice(derivative.getPrice());
     }
 
     public String getFamilyReference() {
@@ -310,4 +315,19 @@ public class BotanicalObjectDownloadResult extends BotanicalObjectDerivative {
         this.indexSeminumType = indexSeminumType;
     }
 
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }
