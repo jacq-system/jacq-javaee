@@ -16,7 +16,10 @@
 package org.jacq.service.rest.impl;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
 import org.jacq.common.model.rest.IndexSeminumDownloadResult;
 import org.jacq.common.model.rest.IndexSeminumResult;
 import org.jacq.common.model.rest.IndexSeminumTypeResult;
@@ -29,12 +32,20 @@ import org.jacq.service.manager.IndexSeminumManager;
  */
 public class IndexSeminumServiceImpl implements IndexSeminumService {
 
+    private static final Logger LOGGER = Logger.getLogger(IndexSeminumServiceImpl.class.getName());
+
     @Inject
     protected IndexSeminumManager indexSeminumManager;
 
     @Override
     public IndexSeminumResult save(IndexSeminumResult indexSeminumResult) {
-        return indexSeminumManager.save(indexSeminumResult);
+        try {
+            return indexSeminumManager.save(indexSeminumResult);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+
+            throw new WebApplicationException(e.getMessage());
+        }
     }
 
     /**
