@@ -48,17 +48,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "tbl_index_seminum_content")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TblIndexSeminumContent.findAll", query = "SELECT t FROM TblIndexSeminumContent t")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByIndexSeminumContentId", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.indexSeminumContentId = :indexSeminumContentId")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByIndexSeminumType", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.indexSeminumType = :indexSeminumType")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByIpenNumber", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.ipenNumber = :ipenNumber")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByHabitat", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.habitat = :habitat")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByAltitudeMin", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.altitudeMin = :altitudeMin")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByAltitudeMax", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.altitudeMax = :altitudeMax")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByLatitude", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.latitude = :latitude")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByLongitude", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.longitude = :longitude")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByAcquisitionDate", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.acquisitionDate = :acquisitionDate")
-    , @NamedQuery(name = "TblIndexSeminumContent.findByTimestamp", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.timestamp = :timestamp")})
+    @NamedQuery(name = "TblIndexSeminumContent.findAll", query = "SELECT t FROM TblIndexSeminumContent t"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByIndexSeminumContentId", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.indexSeminumContentId = :indexSeminumContentId"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByIndexSeminumType", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.indexSeminumType = :indexSeminumType"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByIpenNumber", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.ipenNumber = :ipenNumber"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByHabitat", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.habitat = :habitat"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByAltitudeMin", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.altitudeMin = :altitudeMin"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByAltitudeMax", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.altitudeMax = :altitudeMax"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByLatitude", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.latitude = :latitude"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByLongitude", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.longitude = :longitude"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByAcquisitionDate", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.acquisitionDate = :acquisitionDate"),
+    @NamedQuery(name = "TblIndexSeminumContent.findByTimestamp", query = "SELECT t FROM TblIndexSeminumContent t WHERE t.timestamp = :timestamp")})
 public class TblIndexSeminumContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -92,7 +92,7 @@ public class TblIndexSeminumContent implements Serializable {
     private String indexSeminumType;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 28)
+    @Size(min = 1, max = 40)
     @Column(name = "ipen_number")
     private String ipenNumber;
     @Lob
