@@ -516,9 +516,11 @@ public class DerivativeManager extends BaseDerivativeManager {
         for (Long id : ids) {
             for (BotanicalObjectDerivative botanicalObjectDerivative : botanicalObjectDerivatives) {
                 if (botanicalObjectDerivative.getOrganisationId().compareTo(id) == 0) {
-                    TblLivingPlant tblLivingPlant = em.find(TblLivingPlant.class, botanicalObjectDerivative.getBotanicalObjectId());
-                    tblLivingPlant.setIndexSeminum(Boolean.FALSE);
-                    em.persist(tblLivingPlant);
+                    TblLivingPlant tblLivingPlant = em.find(TblLivingPlant.class, botanicalObjectDerivative.getDerivativeId());
+                    if (tblLivingPlant instanceof TblLivingPlant) {
+                        tblLivingPlant.setIndexSeminum(Boolean.FALSE);
+                        em.persist(tblLivingPlant);
+                    }
                 }
             }
         }
