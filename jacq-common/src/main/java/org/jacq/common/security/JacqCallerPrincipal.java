@@ -15,7 +15,7 @@
  */
 package org.jacq.common.security;
 
-import javax.security.enterprise.CallerPrincipal;
+import jakarta.security.enterprise.CallerPrincipal;
 import org.apache.commons.codec.binary.Base64;
 import org.jacq.common.model.rest.UserResult;
 

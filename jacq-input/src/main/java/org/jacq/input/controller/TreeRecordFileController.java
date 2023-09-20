@@ -6,9 +6,9 @@
 package org.jacq.input.controller;
 
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 import org.jacq.common.util.ServicesUtil;
 import org.jacq.input.view.LazyTreeRecordFileDataModel;
 
@@ -17,7 +17,7 @@ import org.jacq.input.view.LazyTreeRecordFileDataModel;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class TreeRecordFileController implements Serializable {
 

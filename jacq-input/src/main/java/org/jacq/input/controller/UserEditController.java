@@ -15,13 +15,14 @@
  */
 package org.jacq.input.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.model.SelectItem;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.EmploymentTypeResult;
 import org.jacq.common.model.rest.RoleResult;
 import org.jacq.common.model.rest.OrganisationResult;
@@ -35,9 +36,9 @@ import org.jacq.common.util.ServicesUtil;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class UserEditController {
+public class UserEditController implements Serializable {
 
     @Inject
     protected SessionController sessionController;
@@ -77,7 +78,7 @@ public class UserEditController {
         List<RoleResult> roleResults = this.userService.findAllRole();
         this.roles = new ArrayList<>();
         for (RoleResult role : roleResults) {
-            this.roles.add(new SelectItem(role.getRoleId(), role.getName()));
+            this.roles.add(new SelectItem(role.getRoleId().toString(), role.getName()));
         }
         this.selectedRoleIds = new ArrayList<>();
 

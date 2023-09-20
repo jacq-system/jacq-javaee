@@ -8,9 +8,9 @@ package org.jacq.input.controller;
 import org.jacq.input.view.LazyOrganisationDataModel;
 import java.io.Serializable;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 import org.jacq.common.util.ServicesUtil;
 
 /**
@@ -18,7 +18,7 @@ import org.jacq.common.util.ServicesUtil;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class OrganisationController implements Serializable {
 

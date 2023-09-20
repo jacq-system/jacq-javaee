@@ -15,10 +15,11 @@
  */
 package org.jacq.common.model.rest;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import org.jacq.common.model.jpa.TblSeparation;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @see TblSeparation
@@ -28,7 +29,8 @@ import org.jacq.common.model.jpa.TblSeparation;
 public class SeparationResult {
 
     protected Long separationId;
-    protected Date date;
+
+    protected LocalDate date;
     protected String annotation;
 
     protected SeparationTypeResult separationType;
@@ -54,11 +56,11 @@ public class SeparationResult {
         this.separationId = separationId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

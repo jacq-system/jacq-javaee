@@ -15,10 +15,11 @@
  */
 package org.jacq.input.controller;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import java.io.Serializable;
 import org.jacq.common.model.rest.UserResult;
 import org.jacq.common.rest.UserService;
 import org.jacq.common.util.ServicesUtil;
@@ -27,9 +28,9 @@ import org.jacq.common.util.ServicesUtil;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class UserUpdateController {
+public class UserUpdateController implements Serializable {
 
     @Inject
     protected SessionController sessionController;

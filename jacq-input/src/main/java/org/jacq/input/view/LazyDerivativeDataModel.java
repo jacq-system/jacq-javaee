@@ -18,12 +18,16 @@ package org.jacq.input.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
 import org.jacq.common.model.rest.OrderDirection;
 import org.jacq.common.rest.DerivativeService;
 import org.jacq.input.controller.LivingPlantController;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
 /**
@@ -77,15 +81,22 @@ public class LazyDerivativeDataModel extends LazyDataModel<BotanicalObjectDeriva
     }
 
     @Override
-    public Object getRowKey(BotanicalObjectDerivative derivativeResult) {
-        return derivativeResult.getDerivativeId();
+    public String getRowKey(BotanicalObjectDerivative derivativeResult) {
+        return derivativeResult.getDerivativeId().toString();
     }
 
     @Override
-    public List<BotanicalObjectDerivative> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public int count(Map<String, FilterMeta> filters) {
+        return this.getRowCount();
+    }
 
+    @Override
+    public List<BotanicalObjectDerivative> load(int first, int pageSize, Map<String, SortMeta> sortFields,
+        Map<String, FilterMeta> filters) {
+        Optional<Entry<String, SortMeta>> sortField = sortFields.entrySet().stream().findFirst();
+        Optional<SortMeta> sortMeta = sortField.map(Entry::getValue);
         // try to parse the id filter
-        this.derivativeSearchModel.setId((filters.get(FILTER_ID) == null) ? null : Long.valueOf(String.valueOf(filters.get(FILTER_ID))));
+        this.derivativeSearchModel.setId((filters.get(FILTER_ID) == null) ? null : Long.valueOf(String.valueOf(filters.get(FILTER_ID).getFilterValue())));
         if (this.derivativeSearchModel.getSeparated()
                 == 1) {
             this.derivativeSearchModel.setSeparatedFilter(true);
@@ -119,7 +130,8 @@ public class LazyDerivativeDataModel extends LazyDataModel<BotanicalObjectDeriva
         }
 
         // quote type filter and set to null if empty
-        this.derivativeSearchModel.setType(String.valueOf(filters.get(FILTER_TYPE)));
+        this.derivativeSearchModel.setType(String.valueOf(Optional.ofNullable(filters.get(FILTER_TYPE)).map(
+            FilterMeta::getField).orElse(null)));
 
         if (StringUtils.isEmpty(this.derivativeSearchModel.getType())
                 || FILTER_TYPE_EMPTY.equalsIgnoreCase(this.derivativeSearchModel.getType()) || LivingPlantController.TYPE_ALL.equalsIgnoreCase(this.derivativeSearchModel.getType())) {
@@ -133,7 +145,21 @@ public class LazyDerivativeDataModel extends LazyDataModel<BotanicalObjectDeriva
 
         List<BotanicalObjectDerivative> results = new ArrayList<>();
         if (rowCount > 0) {
-            results = this.derivativeService.find(this.derivativeSearchModel.getType(), this.derivativeSearchModel.getId(), this.derivativeSearchModel.getPlaceNumber(), this.derivativeSearchModel.getAccessionNumber(), this.derivativeSearchModel.getSeparatedFilter(), this.derivativeSearchModel.getScientificNameId(), this.derivativeSearchModel.getOrganisationId(), this.derivativeSearchModel.getHierarchic(), this.derivativeSearchModel.getIndexSeminumFilter(), this.derivativeSearchModel.getGatheringLocationName(), (this.derivativeSearchModel.getExhibition() != null) ? this.derivativeSearchModel.getExhibition() : null, (this.derivativeSearchModel.getWorking() != null) ? this.derivativeSearchModel.getWorking() : null, (this.derivativeSearchModel.getSelectedCultivar() != null) ? this.derivativeSearchModel.getSelectedCultivar().getCultivar() : null, this.derivativeSearchModel.getClassification(), sortField, (sortOrder.equals(SortOrder.DESCENDING)) ? OrderDirection.DESC : OrderDirection.ASC, first, pageSize);
+            results = this.derivativeService.find(this.derivativeSearchModel.getType(),
+                this.derivativeSearchModel.getId(), this.derivativeSearchModel.getPlaceNumber(),
+                this.derivativeSearchModel.getAccessionNumber(),
+                this.derivativeSearchModel.getSeparatedFilter(),
+                this.derivativeSearchModel.getScientificNameId(),
+                this.derivativeSearchModel.getOrganisationId(),
+                this.derivativeSearchModel.getHierarchic(),
+                this.derivativeSearchModel.getIndexSeminumFilter(),
+                this.derivativeSearchModel.getGatheringLocationName(),
+                (this.derivativeSearchModel.getExhibition() != null) ? this.derivativeSearchModel.getExhibition() : null,
+                (this.derivativeSearchModel.getWorking() != null) ? this.derivativeSearchModel.getWorking() : null,
+                (this.derivativeSearchModel.getSelectedCultivar() != null) ? this.derivativeSearchModel.getSelectedCultivar().getCultivar() : null,
+                this.derivativeSearchModel.getClassification(),
+                sortMeta.map(SortMeta::getField).orElse(null),
+                sortMeta.map(SortMeta::getOrder).orElse(SortOrder.ASCENDING).equals(SortOrder.DESCENDING) ? OrderDirection.DESC : OrderDirection.ASC, first, pageSize);
         }
 
         return results;

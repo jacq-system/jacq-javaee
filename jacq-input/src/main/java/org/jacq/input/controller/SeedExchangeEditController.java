@@ -8,11 +8,10 @@ package org.jacq.input.controller;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.model.rest.SeedOrderResult;
@@ -30,7 +29,7 @@ import org.primefaces.model.StreamedContent;
  * @author wkoller
  */
 @ViewScoped
-@ManagedBean
+@Named
 public class SeedExchangeEditController implements Serializable {
 
     protected Long seedOrderId;
@@ -47,7 +46,7 @@ public class SeedExchangeEditController implements Serializable {
      */
     protected LabelService labelService;
 
-    @ManagedProperty(value = "#{livingPlantController}")
+    @Inject
     protected LivingPlantController livingPlantController;
 
     @PostConstruct
@@ -87,7 +86,11 @@ public class SeedExchangeEditController implements Serializable {
      * @return
      */
     public StreamedContent getSeedOrder() {
-        return new DefaultStreamedContent(this.labelService.getSeedOrder(this.seedOrderResult.getSeedOrderId()).readEntity(InputStream.class), LabelService.APPLICATION_PDF, "seed_exchange_order.pdf");
+        return DefaultStreamedContent.builder()
+            .name("seed_exchange_order.pdf")
+            .contentType(LabelService.APPLICATION_PDF)
+            .stream(() -> this.labelService.getSeedOrder(this.seedOrderResult.getSeedOrderId()).readEntity(InputStream.class))
+            .build();
     }
 
     public Long getSeedOrderId() {

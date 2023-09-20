@@ -17,13 +17,13 @@ package org.jacq.input.controller;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import org.jacq.input.SessionManager;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import org.jacq.common.manager.JacqConfig;
 import org.jacq.input.ApplicationManager;
 
@@ -32,7 +32,7 @@ import org.jacq.input.ApplicationManager;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class SessionController implements Serializable {
 

@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Transient;
-import javax.validation.Valid;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 
 /**

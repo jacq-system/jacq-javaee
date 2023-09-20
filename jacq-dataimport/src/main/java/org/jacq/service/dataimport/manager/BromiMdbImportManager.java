@@ -19,26 +19,29 @@ import com.healthmarketscience.jackcess.Database;
 import com.healthmarketscience.jackcess.DatabaseBuilder;
 import com.healthmarketscience.jackcess.Row;
 import com.healthmarketscience.jackcess.Table;
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.jacq.common.model.dataimport.ImportFile;
 import org.jacq.common.model.dataimport.ImportRecord;
 import org.jacq.common.rest.dataimport.DataImportService;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 public class BromiMdbImportManager {
 
     private static final Logger LOGGER = Logger.getLogger(BromiMdbImportManager.class.getName());
@@ -163,7 +166,9 @@ public class BromiMdbImportManager {
 
                 // try to parse the date as "normal" date
                 try {
-                    importRecord.setSeparationDate(DateFormat.getDateInstance(DateFormat.SHORT).parse(pflanzenAbgang));
+                    importRecord.setSeparationDate(DateFormat.getDateInstance(DateFormat.SHORT).parse(pflanzenAbgang).toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate());
                     importRecord.setSeparationType("dead (eliminated)");
                 } catch (ParseException pe) {
                     // separate date information
@@ -238,7 +243,8 @@ public class BromiMdbImportManager {
 
                         if (month >= 0) {
                             try {
-                                Date separationDate = new Date(Integer.valueOf(pflanzenAbgangParts[1]) + 100, month, 1);
+                                int year = Integer.valueOf(pflanzenAbgangParts[1]) + 1900;
+                                LocalDate separationDate = LocalDate.of(year, month + 1, 1);
                                 importRecord.setSeparationDate(separationDate);
                                 importRecord.setSeparationType("dead (eliminated)");
                             } catch (Exception e) {
@@ -255,7 +261,7 @@ public class BromiMdbImportManager {
 
             // Augarten entries have their own separation (static)
             if (glashaus.equals(glashausLookup.get("AG"))) {
-                importRecord.setSeparationDate(DateFormat.getDateInstance(DateFormat.SHORT).parse("17.12.2012"));
+                importRecord.setSeparationDate(LocalDate.of(2012, 12, 17));
                 importRecord.setSeparationType("separated");
                 importRecord.setSeparationAnnotation("Augarten");
             }

@@ -7,12 +7,12 @@ package org.jacq.service;
 
 import java.util.HashMap;
 import java.util.List;
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import jakarta.annotation.ManagedBean;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.Singleton;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.jacq.common.manager.JacqConfig;
 import org.jacq.common.model.jpa.FrmwrkConfig;
 

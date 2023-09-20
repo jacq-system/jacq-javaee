@@ -20,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.rest.OrganisationService;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+import org.primefaces.model.SortMeta;
 
 /**
  * Lazy loading data model for botanical object searches
@@ -66,19 +67,26 @@ public class LazyOrganisationDataModel extends LazyDataModel<OrganisationResult>
     }
 
     @Override
-    public Object getRowKey(OrganisationResult organisationResult) {
-        return organisationResult.getOrganisationId();
+    public String getRowKey(OrganisationResult organisationResult) {
+        return organisationResult.getOrganisationId().toString();
     }
 
     @Override
-    public List<OrganisationResult> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public int count(Map<String, FilterMeta> filters) {
+        return this.getRowCount();
+    }
+
+    @Override
+    public List<OrganisationResult> load(int first, int pageSize,
+        Map<String, SortMeta> sortFields,
+        Map<String, FilterMeta> filters) {
 
         //Check if Greenhouse is true or False, All = null
         Boolean greenhouse = null;
         if (filters.get("greenhouse") != null) {
-            if (String.valueOf(filters.get("greenhouse")).equals("false")) {
+            if (String.valueOf(filters.get("greenhouse").getFilterValue()).equals("false")) {
                 greenhouse = false;
-            } else if (String.valueOf(filters.get("greenhouse")).equals("true")) {
+            } else if (String.valueOf(filters.get("greenhouse").getFilterValue()).equals("true")) {
                 greenhouse = true;
             } else {
                 greenhouse = null;
@@ -86,12 +94,30 @@ public class LazyOrganisationDataModel extends LazyDataModel<OrganisationResult>
         }
 
         // get count first
-        int rowCount = this.organisationService.searchCount((filters.get("organisationId") != null) ? Long.parseLong(filters.get("organisationId").toString()) : null, filters.get("description") != null ? filters.get("description").toString() : null, filters.get("department") != null ? filters.get("department").toString() : null, greenhouse, filters.get("ipenCode") != null ? filters.get("ipenCode").toString() : null, filters.get("parentOrganisationDescription") != null ? filters.get("parentOrganisationDescription").toString() : null, filters.get("gardener") != null ? filters.get("gardener").toString() : null);
+        int rowCount = this.organisationService.searchCount(
+            (filters.get("organisationId") != null) ? Long.parseLong(
+                filters.get("organisationId").getFilterValue().toString()) : null,
+            filters.get("description") != null ? filters.get("description").getFilterValue().toString() : null,
+            filters.get("department") != null ? filters.get("department").getFilterValue().toString() : null,
+            greenhouse, filters.get("ipenCode") != null ? filters.get("ipenCode").getFilterValue().toString() : null,
+            filters.get("parentOrganisationDescription") != null ? filters.get(
+                "parentOrganisationDescription").getFilterValue().toString() : null,
+            filters.get("gardener") != null ? filters.get("gardener").getFilterValue().toString() : null);
         this.setRowCount(rowCount);
 
         List<OrganisationResult> results = new ArrayList<>();
         if (rowCount > 0) {
-            results = this.organisationService.search(filters.get("organisationId") != null ? Long.parseLong(filters.get("organisationId").toString()) : null, filters.get("description") != null ? filters.get("description").toString() : null, filters.get("department") != null ? filters.get("department").toString() : null, greenhouse, filters.get("ipenCode") != null ? filters.get("ipenCode").toString() : null, filters.get("parentOrganisationDescription") != null ? filters.get("parentOrganisationDescription").toString() : null, filters.get("gardener") != null ? filters.get("gardener").toString() : null, first, pageSize
+            results = this.organisationService.search(
+                filters.get("organisationId") != null ? Long.parseLong(
+                    filters.get("organisationId").toString()) : null,
+                filters.get("description") != null ? filters.get("description").getFilterValue().toString() : null,
+                filters.get("department") != null ? filters.get("department").getFilterValue().toString() : null,
+                greenhouse,
+                filters.get("ipenCode") != null ? filters.get("ipenCode").getFilterValue().toString() : null,
+                filters.get("parentOrganisationDescription") != null ? filters.get(
+                    "parentOrganisationDescription").getFilterValue().toString() : null,
+                filters.get("gardener") != null ? filters.get("gardener").getFilterValue().toString() : null, first,
+                pageSize
             );
         }
 

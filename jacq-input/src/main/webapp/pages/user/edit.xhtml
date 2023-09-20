@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/WEB-INF/templates/omega/template.xhtml">
+    <ui:composition template="/WEB-INF/templates/saga/template.xhtml">
         <ui:define name="content">
             <f:metadata>
                 <f:viewParam name="id" value="#{userEditController.id}"/>
@@ -93,10 +93,14 @@
                     <div class="ui-g-6 ui-g-nopad">
                         <div class="ui-g">
                             <div class="ui-g-6">
-                                <h:outputText value="#{messages['user.birthdate']}" />
+                                <h:outputText value="#{messages['user.birthdate']}">
+                                    <f:convertDateTime type="localDate" pattern="dd.MM.yyyy" />
+                                </h:outputText>
                             </div>
                             <div class="ui-g-6">
-                                <p:inputText value="#{userEditController.user.birthdate}"/>
+                                <p:inputText value="#{userEditController.user.birthdate}">
+                                    <f:convertDateTime type="localDate" pattern="dd.MM.yyyy" />
+                                </p:inputText>
                             </div>
                         </div>
                     </div>

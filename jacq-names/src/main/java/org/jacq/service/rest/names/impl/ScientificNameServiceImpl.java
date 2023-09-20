@@ -16,7 +16,7 @@
 package org.jacq.service.rest.names.impl;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.CultivarResult;
 import org.jacq.common.model.rest.HabitusTypeResult;
 import org.jacq.common.model.rest.ScientificNameInformationResult;

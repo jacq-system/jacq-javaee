@@ -15,12 +15,12 @@
  */
 package org.jacq.output.controller;
 
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.model.rest.ScientificNameResult;
 import org.jacq.common.rest.names.ScientificNameService;
@@ -34,7 +34,7 @@ import org.jacq.output.view.LazyBotanicalObjectDataModel;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @SessionScoped
 public class SearchController implements Serializable {
 

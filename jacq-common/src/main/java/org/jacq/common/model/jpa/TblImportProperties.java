@@ -16,21 +16,21 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -45,7 +45,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TblImportProperties.findByIDPflanze", query = "SELECT t FROM TblImportProperties t WHERE t.iDPflanze = :iDPflanze")
     , @NamedQuery(name = "TblImportProperties.findBySpeciesName", query = "SELECT t FROM TblImportProperties t WHERE t.speciesName = :speciesName")
     , @NamedQuery(name = "TblImportProperties.findBySourceName", query = "SELECT t FROM TblImportProperties t WHERE t.sourceName = :sourceName")
-    , @NamedQuery(name = "TblImportProperties.findByOriginalBotanicalObjectId", query = "SELECT t FROM TblImportProperties t WHERE t.originalBotanicalObjectId = :originalBotanicalObjectId")})
+    , @NamedQuery(name = "TblImportProperties.findByOriginalBotanicalObjectId", query = "SELECT t FROM TblImportProperties t WHERE t.originalBotanicalObjectId = :originalBotanicalObjectId")
+    , @NamedQuery(name = "TblImportProperties.findByOriginalBotanicalObjectIdAndSourceName", query = "SELECT t FROM TblImportProperties t WHERE t.originalBotanicalObjectId = :originalBotanicalObjectId AND t.sourceName = :sourceName")
+    , @NamedQuery(name = "TblCultivar.findByCultivarAndScientificNameId", query = "SELECT t FROM TblCultivar t INNER JOIN t.scientificNameId sni WHERE t.cultivar = :cultivar AND sni.scientificNameId = :scientificNameId")})
 public class TblImportProperties implements Serializable {
 
     private static final long serialVersionUID = 1L;

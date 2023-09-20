@@ -20,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 import org.jacq.common.model.rest.IndexSeminumResult;
 import org.jacq.common.rest.IndexSeminumService;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+import org.primefaces.model.SortMeta;
 
 /**
  *
@@ -63,12 +64,19 @@ public class LazyIndexSeminumDataModel extends LazyDataModel<IndexSeminumResult>
     }
 
     @Override
-    public Object getRowKey(IndexSeminumResult indexSeminumResult) {
-        return indexSeminumResult.getIndexSeminumRevisionId();
+    public String getRowKey(IndexSeminumResult indexSeminumResult) {
+        return indexSeminumResult.getIndexSeminumRevisionId().toString();
     }
 
     @Override
-    public List<IndexSeminumResult> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public int count(Map<String, FilterMeta> filters) {
+        return this.getRowCount();
+    }
+
+    @Override
+    public List<IndexSeminumResult> load(int first, int pageSize,
+        Map<String, SortMeta> sortFields,
+        Map<String, FilterMeta> filters) {
 
         // get count first
         int rowCount = this.indexSeminumService.searchCount();

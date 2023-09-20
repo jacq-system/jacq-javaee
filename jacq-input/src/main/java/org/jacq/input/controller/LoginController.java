@@ -15,25 +15,26 @@
  */
 package org.jacq.input.controller;
 
+import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.security.enterprise.AuthenticationStatus;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+import jakarta.security.enterprise.credential.Credential;
+import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import org.jacq.input.SessionManager;
-import javax.faces.application.FacesMessage;
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.security.enterprise.AuthenticationStatus;
-import javax.security.enterprise.SecurityContext;
-import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
-import javax.security.enterprise.credential.Credential;
-import javax.security.enterprise.credential.UsernamePasswordCredential;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.jacq.common.manager.JacqConfig;
 import org.jacq.input.ApplicationManager;
+import org.jacq.input.SessionManager;
 
 /**
  * Controller for handling logins of users
@@ -41,7 +42,7 @@ import org.jacq.input.ApplicationManager;
  * @author wkoller
  */
 @RequestScoped
-@ManagedBean
+@Named
 public class LoginController {
 
     @Inject

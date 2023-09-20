@@ -16,7 +16,7 @@
 package org.jacq.service.rest.impl;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.rest.OrganisationService;
 import org.jacq.service.manager.OrganisationManager;

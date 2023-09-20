@@ -15,9 +15,9 @@
  */
 package org.jacq.service.output.manager;
 
-import javax.annotation.ManagedBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.annotation.ManagedBean;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.jacq.common.manager.BaseOrganisationManager;
 
 /**

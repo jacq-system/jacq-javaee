@@ -16,6 +16,7 @@
 package org.jacq.common.model.rest;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,14 +71,14 @@ public class LivingPlantResult extends BotanicalObjectDerivative {
 
     protected Date recordingDate;
     protected Date incomingDate;
-    protected Date cultivationDate;
+    protected LocalDate cultivationDate;
     protected String generalAnnotation;
     protected PhenologyResult phenology;
 
     protected List<AcquistionEventSourceResult> acquistionEventSources;
 
     protected boolean redetermine;
-    protected Date determinationDate;
+    protected LocalDate determinationDate;
     protected IdentStatusResult identStatus;
     protected PersonResult determinedBy;
     protected boolean phytoControl;
@@ -475,11 +476,11 @@ public class LivingPlantResult extends BotanicalObjectDerivative {
         this.incomingDate = incomingDate;
     }
 
-    public Date getCultivationDate() {
+    public LocalDate getCultivationDate() {
         return cultivationDate;
     }
 
-    public void setCultivationDate(Date cultivationDate) {
+    public void setCultivationDate(LocalDate cultivationDate) {
         this.cultivationDate = cultivationDate;
     }
 
@@ -499,11 +500,11 @@ public class LivingPlantResult extends BotanicalObjectDerivative {
         this.phenology = phenology;
     }
 
-    public Date getDeterminationDate() {
+    public LocalDate getDeterminationDate() {
         return determinationDate;
     }
 
-    public void setDeterminationDate(Date determinationDate) {
+    public void setDeterminationDate(LocalDate determinationDate) {
         this.determinationDate = determinationDate;
     }
 

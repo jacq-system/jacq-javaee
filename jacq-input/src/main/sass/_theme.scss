@@ -1,9 +1,60 @@
 /* Theme */
-.ui-widget,
+body .ui-widget,
 .ui-widget .ui-widget {
     font-size: $fontSize;
     text-decoration: none;
 }
+
+.ui-timer {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body .ui-inputfield {
+    padding: 4px;
+}
+
+body .ui-button {
+    margin-right: 1.4px;
+    &.ui-button-text-only {
+        .ui-button-text {
+            padding: .3em 1em;
+        }
+    }
+    &.ui-button-icon-only {
+        .ui-button-text {
+            padding: .3em;
+        }
+    }
+}
+
+body {
+    .ui-chkbox {
+        .ui-chkbox-box {
+            width: 16px;
+            height: 16px;
+
+            &.ui-state-active, &.ui-state-active.ui-state-hover {
+                border: 1px solid rgb(105,109,49);
+                background: rgb(120,124,54);
+                color: #fff;
+            }
+        }
+    }
+}
+
+body {
+    .ui-selectbooleanbutton, .ui-selectonebutton, .ui-selectmanybutton {
+        .ui-button {
+            &.ui-state-active, &.ui-state-active:not(.ui-state-disabled):hover {
+                border: 1px solid rgb(105, 109, 49);
+                background: rgb(120, 124, 54);
+                color: #fff;
+            }
+        }
+    }
+}
+
 
 .ui-spinner {
     .ui-spinner-up {
@@ -11,13 +62,13 @@
             margin-top: -4px;
         }
     }
-    
+
     .ui-spinner-down {
         .ui-icon {
             margin-top: -10px;
         }
     }
-    
+
     .ui-spinner-input {
         font-size: $fontSize;
     }
@@ -29,7 +80,7 @@
             padding-left: 0;
         }
     }
-    
+
     .ui-selectonemenu-label {
         font-size: $fontSize;
     }
@@ -49,13 +100,13 @@
     .ui-selectcheckboxmenu-label {
         padding: 4px 26px 4px 5px;
     }
-    
+
     .ui-selectcheckboxmenu-trigger {
         .ui-icon {
             margin-top: 2px;
         }
     }
-    
+
     &.ui-selectcheckboxmenu-multiple {
         .ui-selectcheckboxmenu-multiple-container {
             &.ui-inputfield {
@@ -109,31 +160,31 @@
         .ui-icon-arrow-1-n {
             @include icon-override("\f106");
         }
-        
+
         .ui-icon-arrowstop-1-n {
             @include icon-override("\f102");
         }
-        
+
         .ui-icon-arrow-1-s {
             @include icon-override("\f107");
         }
-        
+
         .ui-icon-arrowstop-1-s {
             @include icon-override("\f103");
         }
-        
+
         .ui-icon-arrow-1-e {
             @include icon-override("\f105");
         }
-        
+
         .ui-icon-arrowstop-1-e {
             @include icon-override("\f101");
         }
-        
+
         .ui-icon-arrow-1-w {
             @include icon-override("\f104");
         }
-        
+
         .ui-icon-arrowstop-1-w {
             @include icon-override("\f100");
         }
@@ -146,15 +197,15 @@
             .ui-icon-arrow-1-e {
                 @include icon-override("\f107");
             }
-            
+
             .ui-icon-arrowstop-1-e {
                 @include icon-override("\f103");
             }
-            
+
             .ui-icon-arrow-1-w {
                 @include icon-override("\f106");
             }
-            
+
             .ui-icon-arrowstop-1-w {
                 @include icon-override("\f102");
             }
@@ -169,26 +220,26 @@
             font-size: 16px;
             color: #fff;
         }
-        
+
         .ui-icon-arrowstop-1-n {
             @include icon-override("\f102");
             font-size: 16px;
             color: #fff;
         }
-        
+
         .ui-icon-arrow-1-s {
             @include icon-override("\f107");
             font-size: 16px;
             color: #fff;
         }
-        
+
         .ui-icon-arrowstop-1-s {
             @include icon-override("\f103");
             font-size: 16px;
             color: #fff;
         }
     }
-    
+
     &.ui-grid-responsive {
         .ui-grid-row {
             .ui-orderlist-controls {
@@ -204,25 +255,25 @@
         box-sizing: border-box;
         height: 23px;
         width: 24px;
-        
+
         span {
             display: none;
         }
-        
+
         &:before {
             position: relative;
             top: 1px;
         }
     }
-    
+
     .ui-paginator-next {
         @include icon-override("\f04b");
     }
-    
+
     .ui-paginator-last  {
         @include icon-override("\f051");
     }
-    
+
     .ui-paginator-prev {
         @include icon-override("\f04b");
         -webkit-transform: rotate(180deg);
@@ -231,15 +282,15 @@
         -o-transform: rotate(180deg);
         transform: rotate(180deg);
     }
-    
+
     .ui-paginator-first {
         @include icon-override("\f048");
     }
-    
+
     .ui-paginator-pages {
         padding: 0;
         vertical-align: top;
-        
+
         .ui-paginator-page {
             height: 17px;
         }
@@ -271,7 +322,7 @@
             padding-left: 5px;
         }
     }
-    
+
     .ui-datepicker-prev {
         .ui-icon {
             @include icon-override("\f053");
@@ -307,7 +358,7 @@
         @include icon-override("\f111");
         visibility: hidden;
     }
-    
+
     .ui-icon-bullet, .ui-icon-blank {
         font-size: 10px;
         margin-top: 2px;
@@ -318,39 +369,39 @@
 .ui-tree {
     .ui-tree-toggler {
         vertical-align: middle;
-        
+
         &.ui-icon-triangle-1-s {
             margin-top: -5px;
         }
     }
-    
+
     &.ui-tree-horizontal {
         .ui-tree-toggler {
             vertical-align: middle;
         }
     }
-    
+
     .ui-treenode-label {
         margin-top: 0px;
         vertical-align: middle;
     }
-    
+
     .ui-chkbox {
         vertical-align: middle;
         margin-right: 2px;
     }
-    
+
     .ui-treenode-icon {
         vertical-align: middle;
         position: relative;
         top: 1px;
     }
-} 
+}
 
 .ui-treetable {
     .ui-treetable-toggler {
         margin-top: 1px;
-        
+
         &.ui-icon-triangle-1-s {
             margin-top: 1px;
         }
@@ -449,28 +500,28 @@
             background: none;
             color: #fff;
             padding: 4px;
-            
+
             &.ui-growl-image-info {
                 @include icon-override("\f05a");
                 font-size: 36px;
             }
-            
+
             &.ui-growl-image-error {
                 @include icon-override("\f056");
                 font-size: 36px;
             }
-            
+
             &.ui-growl-image-warn {
                 @include icon-override("\f071");
                 font-size: 36px;
             }
-            
+
             &.ui-growl-image-fatal {
                 @include icon-override("\f056");
                 font-size: 36px;
             }
         }
-        
+
         .ui-growl-icon-close {
             @include icon-override("\f00d");
             font-size: $fontSize;
@@ -484,7 +535,7 @@
         &.ui-carousel-next-button {
             @include icon-override("\f054");
         }
-        
+
         &.ui-carousel-prev-button {
             @include icon-override("\f053");
         }
@@ -508,7 +559,7 @@
             top: 1px;
         }
     }
-    
+
     .ui-menuitem-link {
         text-decoration: none;
     }
@@ -520,13 +571,13 @@
             margin-top: 1px;
         }
     }
-    
+
     &.ui-megamenu {
         .ui-menuitem-icon {
             margin-top: 1px;
         }
     }
-    
+
     .ui-menuitem-link {
         width: 96%;
     }
@@ -542,7 +593,7 @@
     .ui-menuitem-icon {
         margin-top: 1px;
     }
-    
+
     li.ui-state-active {
         .ui-menuitem-icon {
             color: #ffffff;
@@ -569,42 +620,127 @@
     }
 }
 
-.ui-datatable {
-    .ui-row-toggler {
-        &.ui-icon-circle-triangle-e {
-            @include icon-override("\f054");
+body {
+    .ui-datatable {
+
+        .ui-widget-header {
+            color: #222;
+            font-weight: bold
         }
-        &.ui-icon-circle-triangle-s {
-            @include icon-override("\f078");
+
+        .ui-datatable-tablewrapper {
+            width: 100%
         }
-    }
-    
-    .ui-radiobutton {
-        .ui-icon-bullet, .ui-icon-blank {
-            color: #186ba0;
+
+        .ui-row-toggler {
+            &.ui-icon-circle-triangle-e {
+                @include icon-override("\f054");
+            }
+
+            &.ui-icon-circle-triangle-s {
+                @include icon-override("\f078");
+            }
         }
-    }
-    
-    .ui-chkbox {
-        .ui-chkbox-box {
-            color: #186ba0;
+
+        .ui-radiobutton {
+            .ui-icon-bullet, .ui-icon-blank {
+                color: #186ba0;
+            }
         }
-    }
-    
-    .ui-datatable-data {
-        tr.ui-state-hover {
-            border-bottom: #d5d5d5;
+
+        .ui-chkbox {
+            .ui-chkbox-box {
+                color: #186ba0;
+            }
         }
+
+        .ui-paginator {
+            padding: 2px;
+
+            .ui-paginator-current {
+                margin: 0;
+            }
+
+            .ui-paginator-prev {
+                transform: none;
+            }
+
+            .ui-paginator-pages {
+                vertical-align: inherit;
+                .ui-paginator-page {
+                    &.ui-state-active {
+                        background: rgb(120,124,54);
+                        color: #fff;
+                        border-color: rgb(105,109,49);
+                    }
+                }
+            }
+
+            .ui-paginator-pages .ui-paginator-page, .ui-paginator-first, .ui-paginator-prev, .ui-paginator-next, .ui-paginator-last {
+                line-height: inherit;
+                height: inherit;
+                vertical-align: middle;
+            }
+        }
+
+        thead {
+            th {
+                padding: 4px 10px;
+                background: #ffffff;
+            }
+        }
+
+        .ui-datatable-data {
+            .ui-datatable-odd {
+                background-color: #fafafb
+            }
+
+            > tr {
+                > td {
+                    padding: 4px 10px;
+                }
+            }
+
+            tr.ui-state-hover {
+                border-bottom: #d5d5d5;
+            }
+        }
+
+        .ui-datatable-footer {
+            background: #ffffff;
+            text-align: center;
+            padding: 4px 10px
+        }
+
     }
 }
 
-.ui-tabs {
+body .ui-tabs {
+    &.ui-tabs-top {
+        > .ui-tabs-nav {
+            li {
+                &.ui-tabs-header {
+                    &.ui-state-active {
+                        border-color: rgb(120, 124, 54);
+                    }
+                }
+            }
+        }
+    }
     .ui-tabs-nav {
         li {
+            &.ui-tabs-header {
+                &.ui-state-active {
+                    a {
+                        color: rgb(120, 124, 54);
+
+                    }
+                }
+            }
             .ui-icon {
                 margin-top: 0.6em;
             }
-            
+
             > a:focus {
                 outline: 0 none;
             }
@@ -630,14 +766,14 @@
     }
 }
 
-.ui-fluid { 
+.ui-fluid {
     .ui-selectonebutton, .ui-selectmanybutton {
         &.ui-buttonset.ui-buttonset-3 {
             .ui-button {
                 width: 33.33%;
             }
         }
-        
+
         &.ui-buttonset.ui-buttonset-6 {
             .ui-button {
                 width: 16.66%;
@@ -659,7 +795,7 @@
                         border-bottom: 1px solid #d6d6d6;
                     }
                 }
-                
+
                 &.ui-buttonset-6, &.ui-buttonset-3 {
                     .ui-button {
                         width: 100%;
@@ -687,17 +823,17 @@ a {
 .ui-lightbox {
     .ui-lightbox-nav-left {
         letter-spacing: 11px;
-        
+
         span {
             margin: 5px 0;
             padding-left: 7px;
             padding-top: 3px;
         }
     }
-    
+
     .ui-lightbox-nav-right {
         letter-spacing: 11px;
-        
+
         span {
             margin: 5px 0;
             padding-left: 7px;
@@ -714,11 +850,11 @@ a {
         &.green-button {
             background-color: $greenButton;
             border-color: $greenButtonBorder;
-            
+
             &.ui-state-hover {
                 background-color: $greenButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $greenButtonActive;
             }
@@ -732,11 +868,11 @@ a {
         &.yellow-button {
             background-color: $yellowButton;
             border-color: $yellowButtonBorder;
-            
+
             &.ui-state-hover {
                 background-color: $yellowButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $yellowButtonActive;
             }
@@ -750,11 +886,11 @@ a {
         &.red-button {
             background-color: $redButton;
             border-color: $redButtonBorder;
-            
+
             &.ui-state-hover {
                 background-color: $redButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $redButtonActive;
             }
@@ -768,16 +904,16 @@ a {
         &.aqua-button {
             background-color: $aquaButton;
             border-color: $aquaButtonBorder;
-            
+
             &.ui-state-hover {
                 background-color: $aquaButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $aquaButtonActive;
             }
         }
-    }    
+    }
 }
 
 /*Navy Button*/
@@ -786,11 +922,11 @@ a {
         &.navy-button {
             background-color: $navyButton;
             border-color: $navyButtonBorder;
-            
+
             &.ui-state-hover {
                 background-color: $navyButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $navyButtonActive;
             }
@@ -804,11 +940,11 @@ a {
         &.black-button {
             background-color: $blackButton;
             border-color: $blackButtonBorder;
-            
+
             &.ui-state-hover {
                 background-color: $blackButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $blackButtonActive;
             }
@@ -822,17 +958,17 @@ a {
         &.gray-button {
             background-color: $greyButton;
             border-color: $greyButtonBorder;
-            
+
             &.ui-button {
                 span.ui-button-text {
                     color: $greyButtonText;
                 }
             }
-            
+
             &.ui-state-hover {
                 background-color: $greyButtonHover;
             }
-            
+
             &.ui-state-active {
                 background-color: $greyButtonActive;
             }
@@ -841,7 +977,7 @@ a {
 }
 
 .ui-fluid {
-    .ui-wizard-navbar { 
+    .ui-wizard-navbar {
         .ui-button {
             width: auto;
         }

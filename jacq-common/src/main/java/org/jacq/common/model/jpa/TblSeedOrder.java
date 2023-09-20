@@ -16,31 +16,31 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,7 +53,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblSeedOrder.findAll", query = "SELECT t FROM TblSeedOrder t")
     , @NamedQuery(name = "TblSeedOrder.findBySeedOrderId", query = "SELECT t FROM TblSeedOrder t WHERE t.seedOrderId = :seedOrderId")
     , @NamedQuery(name = "TblSeedOrder.findByOrderDate", query = "SELECT t FROM TblSeedOrder t WHERE t.orderDate = :orderDate")
-    , @NamedQuery(name = "TblSeedOrder.findByComplete", query = "SELECT t FROM TblSeedOrder t WHERE t.complete = :complete")})
+    , @NamedQuery(name = "TblSeedOrder.findByComplete", query = "SELECT t FROM TblSeedOrder t WHERE t.complete = :complete")
+    , @NamedQuery(name = "TblSeedOrder.findBySenderUserId", query = "SELECT t FROM TblSeedOrder t WHERE t.senderUserId = :senderUserId")})
 public class TblSeedOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,8 +66,7 @@ public class TblSeedOrder implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_date")
-    @Temporal(TemporalType.DATE)
-    private Date orderDate;
+    private LocalDate orderDate;
     @Lob
     @Size(max = 65535)
     @Column(name = "annotation")
@@ -94,7 +94,7 @@ public class TblSeedOrder implements Serializable {
         this.seedOrderId = seedOrderId;
     }
 
-    public TblSeedOrder(Long seedOrderId, Date orderDate, boolean complete) {
+    public TblSeedOrder(Long seedOrderId, LocalDate orderDate, boolean complete) {
         this.seedOrderId = seedOrderId;
         this.orderDate = orderDate;
         this.complete = complete;
@@ -108,11 +108,11 @@ public class TblSeedOrder implements Serializable {
         this.seedOrderId = seedOrderId;
     }
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 

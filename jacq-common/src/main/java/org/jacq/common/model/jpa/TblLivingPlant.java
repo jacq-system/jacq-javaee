@@ -16,30 +16,30 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -64,7 +64,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TblLivingPlant.findByReviewed", query = "SELECT t FROM TblLivingPlant t WHERE t.reviewed = :reviewed")
     , @NamedQuery(name = "TblLivingPlant.findByHasImage", query = "SELECT t FROM TblLivingPlant t WHERE t.hasImage = :hasImage")
     , @NamedQuery(name = "TblLivingPlant.findByHasPublicImage", query = "SELECT t FROM TblLivingPlant t WHERE t.hasPublicImage = :hasPublicImage")
-    , @NamedQuery(name = "TblLivingPlant.findBySeminumCount", query = "SELECT t FROM TblLivingPlant t WHERE t.seminumCount = :seminumCount")})
+    , @NamedQuery(name = "TblLivingPlant.findBySeminumCount", query = "SELECT t FROM TblLivingPlant t WHERE t.seminumCount = :seminumCount")
+    , @NamedQuery(name = "TblLivingPlant.resetImageStatus", query = "UPDATE TblLivingPlant t SET t.hasImage = FALSE, t.hasPublicImage = FALSE WHERE t.tblDerivative IN ( SELECT td FROM TblDerivative td WHERE td.organisationId IN (:organisations) )")
+    , @NamedQuery(name = "TblLivingPlant.findByAccessionNumberList", query = "SELECT t FROM TblLivingPlant t WHERE t.accessionNumber in (:accessionNumberList)")})
 public class TblLivingPlant implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -105,8 +107,7 @@ public class TblLivingPlant implements Serializable {
     @Column(name = "culture_notes")
     private String cultureNotes;
     @Column(name = "cultivation_date")
-    @Temporal(TemporalType.DATE)
-    private Date cultivationDate;
+    private LocalDate cultivationDate;
     @Column(name = "label_synonym_scientific_name_id")
     private Long labelSynonymScientificNameId;
     @Lob
@@ -252,11 +253,11 @@ public class TblLivingPlant implements Serializable {
         this.cultureNotes = cultureNotes;
     }
 
-    public Date getCultivationDate() {
+    public LocalDate getCultivationDate() {
         return cultivationDate;
     }
 
-    public void setCultivationDate(Date cultivationDate) {
+    public void setCultivationDate(LocalDate cultivationDate) {
         this.cultivationDate = cultivationDate;
     }
 

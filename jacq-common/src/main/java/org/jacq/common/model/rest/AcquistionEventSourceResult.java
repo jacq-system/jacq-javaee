@@ -15,10 +15,11 @@
  */
 package org.jacq.common.model.rest;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import org.jacq.common.model.jpa.TblAcquisitionEventSource;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,7 +28,7 @@ import org.jacq.common.model.jpa.TblAcquisitionEventSource;
 public class AcquistionEventSourceResult {
 
     private Long acquisitionEventSourceId;
-    private Date sourceDate;
+    private LocalDate sourceDate;
     private AcquisitionSourceResult acquisitionEventSource;
 
     public AcquistionEventSourceResult() {
@@ -50,11 +51,11 @@ public class AcquistionEventSourceResult {
         this.acquisitionEventSourceId = acquisitionEventSourceId;
     }
 
-    public Date getSourceDate() {
+    public LocalDate getSourceDate() {
         return sourceDate;
     }
 
-    public void setSourceDate(Date sourceDate) {
+    public void setSourceDate(LocalDate sourceDate) {
         this.sourceDate = sourceDate;
     }
 

@@ -15,8 +15,8 @@
  */
 package org.jacq.common.model.rest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.jacq.common.model.jpa.TblVegetative;
 import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
@@ -29,7 +29,7 @@ import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
 public class VegetativeResult extends BotanicalObjectDerivative {
 
     protected Long vegetativeId;
-    protected Date cultivationDate;
+    protected LocalDate cultivationDate;
     protected String annotation;
     protected PhenologyResult phenology;
     protected OrganisationResult organisation;
@@ -86,11 +86,11 @@ public class VegetativeResult extends BotanicalObjectDerivative {
         this.vegetativeId = vegetativeId;
     }
 
-    public Date getCultivationDate() {
+    public LocalDate getCultivationDate() {
         return cultivationDate;
     }
 
-    public void setCultivationDate(Date cultivationDate) {
+    public void setCultivationDate(LocalDate cultivationDate) {
         this.cultivationDate = cultivationDate;
     }
 

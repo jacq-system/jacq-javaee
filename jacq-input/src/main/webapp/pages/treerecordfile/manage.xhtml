@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/WEB-INF/templates/omega/template.xhtml">
+    <ui:composition template="/WEB-INF/templates/saga/template.xhtml">
         <ui:define name="content">
             <div class="jacq-content">
                 <div class="jacq-content-header">
@@ -28,7 +28,7 @@
                             <p:column filterBy="#{treeRecordFileResult.year}" headerText="#{messages['treerecordfile.year']}">
                                 <f:facet name="filter">
                                     <p:spinner onchange="PF('treeRecordFileTable').filter()">
-                                        <f:converter converterId="javax.faces.Integer" />
+                                        <f:converter converterId="jakarta.faces.Integer" />
                                     </p:spinner>
                                 </f:facet>
                                 <h:outputText value="#{treeRecordFileResult.year}" />

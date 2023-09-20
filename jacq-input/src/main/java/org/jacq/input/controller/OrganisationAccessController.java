@@ -15,9 +15,10 @@
  */
 package org.jacq.input.controller;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import java.io.Serializable;
 import org.jacq.common.model.rest.AccessOrganisationResult;
 import org.jacq.common.rest.AuthorizationService;
 import org.jacq.common.util.ServicesUtil;
@@ -27,9 +28,9 @@ import org.jacq.input.view.LazyOrganisationAccessDataModel;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class OrganisationAccessController {
+public class OrganisationAccessController implements Serializable {
 
     protected LazyOrganisationAccessDataModel dataModel;
 

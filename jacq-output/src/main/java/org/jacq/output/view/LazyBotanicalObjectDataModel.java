@@ -18,12 +18,16 @@ package org.jacq.output.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
 import org.jacq.common.model.rest.OrderDirection;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.model.rest.ScientificNameResult;
 import org.jacq.common.rest.output.SearchService;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
 /**
@@ -76,20 +80,39 @@ public class LazyBotanicalObjectDataModel extends LazyDataModel<BotanicalObjectD
     }
 
     @Override
-    public Object getRowKey(BotanicalObjectDerivative botanicalObjectDerivative) {
-        return botanicalObjectDerivative.getDerivativeId();
+    public String getRowKey(BotanicalObjectDerivative botanicalObjectDerivative) {
+        return botanicalObjectDerivative.getDerivativeId().toString();
     }
 
     @Override
-    public List<BotanicalObjectDerivative> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public int count(Map<String, FilterMeta> filters) {
+        return this.getRowCount();
+    }
+
+    @Override
+    public List<BotanicalObjectDerivative> load(int first, int pageSize,
+        Map<String, SortMeta> sortFields,
+        Map<String, FilterMeta> filters) {
+
+        Optional<Entry<String, SortMeta>> sortField = sortFields.entrySet().stream().findFirst();
+        Optional<SortMeta> sortMeta = sortField.map(Entry::getValue);
+
         // get count first
         //int rowCount = this.derivativeService.count(getScientificName(), getOrganization(), hasImage);
-        int rowCount = this.searchService.count((scientificName != null) ? scientificName.getScientificNameId() : null, (organization != null) ? organization.getOrganisationId() : null, hasImage);
+        int rowCount = this.searchService.count(
+            (scientificName != null) ? scientificName.getScientificNameId() : null,
+            (organization != null) ? organization.getOrganisationId() : null, hasImage);
         this.setRowCount(rowCount);
 
         List<BotanicalObjectDerivative> results = new ArrayList<>();
         if (rowCount > 0) {
-            results = this.searchService.find((scientificName != null) ? scientificName.getScientificNameId() : null, (organization != null) ? organization.getOrganisationId() : null, hasImage, sortField, (sortOrder.equals(SortOrder.DESCENDING)) ? OrderDirection.DESC : OrderDirection.ASC, first, pageSize);
+            results = this.searchService.find(
+                (scientificName != null) ? scientificName.getScientificNameId() : null,
+                (organization != null) ? organization.getOrganisationId() : null, hasImage,
+                sortMeta.map(SortMeta::getField).orElse(null),
+                sortMeta.map(SortMeta::getOrder).orElse(SortOrder.ASCENDING)
+                    .equals(SortOrder.DESCENDING) ? OrderDirection.DESC : OrderDirection.ASC, first,
+                pageSize);
         }
 
         return results;

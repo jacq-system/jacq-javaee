@@ -16,22 +16,23 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -54,7 +55,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TblClassification.findByTimestamp", query = "SELECT t FROM TblClassification t WHERE t.timestamp = :timestamp")
     , @NamedQuery(name = "TblClassification.findByParentScientificNameId", query = "SELECT t FROM TblClassification t WHERE t.parentScientificNameId = :parentScientificNameId")
     , @NamedQuery(name = "TblClassification.findByNumber", query = "SELECT t FROM TblClassification t WHERE t.number = :number")
-    , @NamedQuery(name = "TblClassification.findByOrder", query = "SELECT t FROM TblClassification t WHERE t.order = :order")})
+    , @NamedQuery(name = "TblClassification.findByOrder", query = "SELECT t FROM TblClassification t WHERE t.order = :order")
+    , @NamedQuery(name = "TblClassification.findBySourceAndAcceptedAndScientificNameId", query = "SELECT t FROM TblClassification t WHERE t.source = :source AND t.sourceId = :sourceId AND t.scientificNameId = :scientificNameId")
+    , @NamedQuery(name = "TblClassification.findTopLevelBySource", query = "SELECT t FROM TblClassification t WHERE t.source = :source AND t.sourceId = :sourceId AND t.parentScientificNameId IS NULL")
+    , @NamedQuery(name = "TblClassification.findBySourceAndParent", query = "SELECT t FROM TblClassification t WHERE t.source = :source AND t.sourceId = :sourceId AND t.parentScientificNameId = :parentScientificNameId")
+    , @NamedQuery(name = "TblClassification.findAllAvailable", query = "SELECT t FROM TblClassification t WHERE t.parentScientificNameId IS NULL GROUP BY t.source, t.sourceId")})
 public class TblClassification implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,8 +75,7 @@ public class TblClassification implements Serializable {
     @Column(name = "acc_scientific_name_id")
     private Long accScientificNameId;
     @Column(name = "ref_date")
-    @Temporal(TemporalType.DATE)
-    private Date refDate;
+    private LocalDate refDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "preferred_taxonomy")
@@ -133,11 +137,11 @@ public class TblClassification implements Serializable {
         this.accScientificNameId = accScientificNameId;
     }
 
-    public Date getRefDate() {
+    public LocalDate getRefDate() {
         return refDate;
     }
 
-    public void setRefDate(Date refDate) {
+    public void setRefDate(LocalDate refDate) {
         this.refDate = refDate;
     }
 

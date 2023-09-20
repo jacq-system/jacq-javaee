@@ -5,12 +5,12 @@
  */
 package org.jacq.service.report;
 
+import jakarta.inject.Named;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.birt.core.framework.Platform;
 import org.eclipse.birt.report.engine.api.EngineConfig;
 import org.eclipse.birt.report.engine.api.IReportEngine;
@@ -24,7 +24,7 @@ import org.jacq.service.report.security.PassthroughClientRequestFilter;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @ApplicationScoped
 public class ApplicationManager {
 

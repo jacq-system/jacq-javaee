@@ -16,8 +16,8 @@
 package org.jacq.output;
 
 import java.io.Serializable;
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.SessionScoped;
 
 /**
  * Session bean for handling all session scoped content

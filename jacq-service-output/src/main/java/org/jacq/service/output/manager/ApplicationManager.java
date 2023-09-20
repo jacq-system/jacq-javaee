@@ -15,8 +15,8 @@
  */
 package org.jacq.service.output.manager;
 
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.annotation.ManagedBean;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.jacq.common.manager.BaseApplicationManager;
 
 /**

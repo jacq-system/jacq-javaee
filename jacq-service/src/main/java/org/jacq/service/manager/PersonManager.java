@@ -16,10 +16,10 @@
 package org.jacq.service.manager;
 
 import java.util.List;
-import javax.annotation.ManagedBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import jakarta.annotation.ManagedBean;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.jacq.common.model.jpa.TblPerson;
 import org.jacq.common.model.rest.PersonResult;
 import org.jacq.common.rest.PersonService;

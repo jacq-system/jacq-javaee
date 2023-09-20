@@ -1,6 +1,6 @@
 package org.jacq.service.rest.impl;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.rest.UuidService;
 import org.jacq.service.manager.UuidManager;
 

@@ -15,8 +15,8 @@
  */
 package org.jacq.common.model.rest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.jacq.common.model.jpa.TblDerivative;
 import org.jacq.common.model.jpa.TblSeedOrder;
@@ -29,7 +29,7 @@ import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
 public class SeedOrderResult {
 
     protected Long seedOrderId;
-    protected Date orderDate;
+    protected LocalDate orderDate;
     protected String annotation;
     protected boolean complete;
 
@@ -62,11 +62,11 @@ public class SeedOrderResult {
         this.seedOrderId = seedOrderId;
     }
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 

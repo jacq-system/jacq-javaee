@@ -16,23 +16,23 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -59,8 +59,7 @@ public class TblLivingPlantTreeRecordFilePage implements Serializable {
     @Column(name = "corrections_done")
     private boolean correctionsDone;
     @Column(name = "corrections_date")
-    @Temporal(TemporalType.DATE)
-    private Date correctionsDate;
+    private LocalDate correctionsDate;
     @JoinColumn(name = "living_plant_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TblLivingPlant livingPlantId;
@@ -96,11 +95,11 @@ public class TblLivingPlantTreeRecordFilePage implements Serializable {
         this.correctionsDone = correctionsDone;
     }
 
-    public Date getCorrectionsDate() {
+    public LocalDate getCorrectionsDate() {
         return correctionsDate;
     }
 
-    public void setCorrectionsDate(Date correctionsDate) {
+    public void setCorrectionsDate(LocalDate correctionsDate) {
         this.correctionsDate = correctionsDate;
     }
 

@@ -15,26 +15,27 @@
  */
 package org.jacq.input.controller;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.TreeRecordFileResult;
 import org.jacq.common.rest.TreeRecordFileService;
 import org.jacq.common.util.ServicesUtil;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class TreeRecordFileEditController {
+public class TreeRecordFileEditController implements Serializable {
 
     @Inject
     protected SessionController sessionController;
@@ -72,7 +73,7 @@ public class TreeRecordFileEditController {
 
     public String edit() {
         try {
-            this.treeRecordFile.setFileContent(new String(Base64.getEncoder().encode(this.file.getContents()), "ASCII"));
+            this.treeRecordFile.setFileContent(new String(Base64.getEncoder().encode(this.file.getContent()), "ASCII"));
             this.treeRecordFile = this.treeRecordFileService.save(this.treeRecordFile);
 
         } catch (UnsupportedEncodingException ex) {

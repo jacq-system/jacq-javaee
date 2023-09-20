@@ -5,15 +5,15 @@
  */
 package org.jacq.service.manager;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.annotation.ManagedBean;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import jakarta.annotation.ManagedBean;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.jacq.common.model.jpa.FrmwrkUser;
 import org.jacq.common.model.jpa.TblDerivative;
 import org.jacq.common.model.jpa.TblOrganisation;
@@ -84,7 +84,7 @@ public class SeedExchangeManager {
         FrmwrkUser frmwrkUser = em.find(FrmwrkUser.class, securityManager.getUser().getId());
 
         // set all necessary properties for order
-        tblSeedOrder.setOrderDate(new Date());
+        tblSeedOrder.setOrderDate(LocalDate.now());
         tblSeedOrder.setAnnotation(seedOrderResult.getAnnotation());
         tblSeedOrder.setComplete(true);
         tblSeedOrder.setOrdererOrganisationId(em.find(TblOrganisation.class, seedOrderResult.getOrdererOrganisation().getOrganisationId()));

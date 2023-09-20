@@ -16,7 +16,7 @@
 package org.jacq.service.rest.impl;
 
 import java.util.HashMap;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.rest.PortalService;
 import org.jacq.service.JacqServiceConfig;
 

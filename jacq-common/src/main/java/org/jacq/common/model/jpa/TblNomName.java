@@ -17,24 +17,24 @@ package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -45,7 +45,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblNomName.findAll", query = "SELECT t FROM TblNomName t")
-    , @NamedQuery(name = "TblNomName.findByNameId", query = "SELECT t FROM TblNomName t WHERE t.nameId = :nameId")})
+    , @NamedQuery(name = "TblNomName.findByNameId", query = "SELECT t FROM TblNomName t WHERE t.nameId = :nameId")
+    , @NamedQuery(name = "TblNomName.findBySubstantive", query = "SELECT t FROM TblNomName t WHERE t.substantiveId IN (:substantiveIds) AND t.firstEpithetId IS NULL AND t.secondEpithetId IS NULL")
+    , @NamedQuery(name = "TblNomName.findBySubstantiveAndFirstEpithet", query = "SELECT t FROM TblNomName t WHERE t.substantiveId IN (:substantiveIds) AND t.firstEpithetId IN (:firstEpithetIds) AND t.secondEpithetId IS NULL")
+    , @NamedQuery(name = "TblNomName.findBySubstantiveAndFirstEpithetAndSecondEpithet", query = "SELECT t FROM TblNomName t WHERE t.substantiveId IN (:substantiveIds) AND t.firstEpithetId IN (:firstEpithetIds) AND t.secondEpithetId IN (:secondEpithetIds)")
+    , @NamedQuery(name = "TblNomName.findBySubstantiveAndRank", query = "SELECT t FROM TblNomName t INNER JOIN t.substantiveId s INNER JOIN t.rankId r WHERE s.substantiveId = :substantiveId AND r.rankId = :rankId")
+    , @NamedQuery(name = "TblNomName.findNameIdAndScientificName", query = "SELECT new org.jacq.common.model.jpa.ScientificName(t.nameId, v.scientificName) FROM TblNomName t JOIN t.viewScientificName v WHERE t.nameId = :scientificNameId")})
 public class TblNomName implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,10 +74,10 @@ public class TblNomName implements Serializable {
     @ManyToMany
     private List<TblPerson> tblPersonList;
     @JoinColumn(name = "first_epithet_id", referencedColumnName = "epithet_id")
-    @ManyToOne(optional = false)
+    @ManyToOne()
     private TblNomEpithet firstEpithetId;
     @JoinColumn(name = "second_epithet_id", referencedColumnName = "epithet_id")
-    @ManyToOne(optional = false)
+    @ManyToOne()
     private TblNomEpithet secondEpithetId;
     @JoinColumn(name = "substantive_id", referencedColumnName = "substantive_id")
     @ManyToOne(optional = false)

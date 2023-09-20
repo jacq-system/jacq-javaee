@@ -7,9 +7,9 @@ package org.jacq.input.controller;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
 import org.jacq.common.model.rest.SeedOrderResult;
 import org.jacq.common.rest.SeedExchangeService;
 import org.jacq.common.util.ServicesUtil;
@@ -19,7 +19,7 @@ import org.jacq.common.util.ServicesUtil;
  * @author wkoller
  */
 @ViewScoped
-@ManagedBean
+@Named
 public class SeedExchangeController implements Serializable {
 
     protected SeedExchangeService seedExchangeService;

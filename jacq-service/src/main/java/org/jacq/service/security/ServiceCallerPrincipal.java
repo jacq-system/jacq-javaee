@@ -15,7 +15,7 @@
  */
 package org.jacq.service.security;
 
-import javax.security.enterprise.CallerPrincipal;
+import jakarta.security.enterprise.CallerPrincipal;
 import org.jacq.common.model.rest.UserResult;
 
 /**

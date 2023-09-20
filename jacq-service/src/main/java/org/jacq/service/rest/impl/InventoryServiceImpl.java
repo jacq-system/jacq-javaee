@@ -16,7 +16,7 @@
 package org.jacq.service.rest.impl;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.InventoryResult;
 import org.jacq.common.model.rest.InventoryTypeResult;
 import org.jacq.common.rest.InventoryService;

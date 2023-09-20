@@ -5,10 +5,10 @@
  */
 package org.jacq.service.manager;
 
-import javax.annotation.ManagedBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import jakarta.annotation.ManagedBean;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.jacq.common.model.jpa.TblDerivative;
 import org.jacq.common.model.jpa.TblDerivativeType;
 import org.jacq.common.model.jpa.TblOrganisation;

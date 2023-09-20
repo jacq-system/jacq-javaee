@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.Map;
 import org.jacq.common.model.rest.AccessOrganisationResult;
 import org.jacq.common.rest.AuthorizationService;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+import org.primefaces.model.SortMeta;
 
 /**
  *
@@ -75,12 +76,19 @@ public class LazyOrganisationAccessDataModel extends LazyDataModel<AccessOrganis
     }
 
     @Override
-    public Object getRowKey(AccessOrganisationResult accessOrganisationResult) {
-        return accessOrganisationResult.getId();
+    public String getRowKey(AccessOrganisationResult accessOrganisationResult) {
+        return accessOrganisationResult.getId().toString();
     }
 
     @Override
-    public List<AccessOrganisationResult> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public int count(Map<String, FilterMeta> filters) {
+        return this.getRowCount();
+    }
+
+    @Override
+    public List<AccessOrganisationResult> load(int first, int pageSize,
+        Map<String, SortMeta> sortFields,
+        Map<String, FilterMeta> filters) {
 
         // get count first
         int rowCount = this.authorizationService.searchCount(this.Id, this.username, this.birthdate, this.userType, this.employmentType, this.organisationDescription, this.accessOrganisationId, this.allowDeny, this.userId, this.organisationId);

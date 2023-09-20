@@ -18,17 +18,17 @@ package org.jacq.service.manager;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import org.jacq.common.model.jpa.FrmwrkUser;
 import org.jacq.common.model.jpa.FrmwrkaccessOrganisation;
 import org.jacq.common.model.jpa.TblOrganisation;
@@ -118,12 +118,12 @@ public class AuthorizationManager {
         }
 
         if (userId != null) {
-            path = bo.get("userId");
+            path = bo.get("userId").get("id");
             predicates.add(cb.equal(path, userId));
         }
 
         if (organisationId != null) {
-            path = bo.get("organisationId");
+            path = bo.get("organisationId").get("id");
             predicates.add(cb.equal(path, organisationId));
         }
 

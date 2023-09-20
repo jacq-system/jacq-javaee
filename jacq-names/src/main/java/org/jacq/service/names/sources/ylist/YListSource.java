@@ -15,15 +15,14 @@
  */
 package org.jacq.service.names.sources.ylist;
 
-import org.jacq.service.names.sources.dnpgoth.*;
+import jakarta.inject.Named;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.ws.rs.core.Response;
+import jakarta.annotation.PostConstruct;
+import jakarta.ws.rs.core.Response;
 import org.jacq.common.model.names.CommonName;
 import org.jacq.common.model.names.NameParserResponse;
 import org.jacq.service.names.sources.CommonNamesSource;
@@ -34,7 +33,7 @@ import org.jacq.service.names.sources.util.SourcesUtil;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 public class YListSource implements CommonNamesSource {
 
     private static final Logger LOGGER = Logger.getLogger(YListSource.class.getName());

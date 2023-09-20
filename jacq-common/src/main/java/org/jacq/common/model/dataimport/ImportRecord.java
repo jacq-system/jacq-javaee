@@ -16,14 +16,14 @@
 package org.jacq.common.model.dataimport;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * Model for holding a single import record
@@ -59,9 +59,8 @@ public class ImportRecord implements Serializable {
     protected String genericAnnotation;
     @Column(name = "gathering_number")
     protected String gatheringNumber;
-    @Temporal(TemporalType.DATE)
     @Column(name = "separation_date")
-    protected Date separationDate;
+    protected LocalDate separationDate;
     @Column(name = "separation_type")
     protected String separationType;
     @Column(name = "separation_annotation")
@@ -89,7 +88,7 @@ public class ImportRecord implements Serializable {
     @Column(name = "price")
     protected Float price;
     @Column(name = "gathering_date")
-    protected Date gatheringDate;
+    protected LocalDate gatheringDate;
     @Column(name = "gathering_source")
     protected String gatheringSource;
     @Column(name = "altitude_min")
@@ -107,7 +106,7 @@ public class ImportRecord implements Serializable {
     @Column(name = "habitat")
     protected String habitat;
     @Column(name = "acquisition_date")
-    protected Date acquisitionDate;
+    protected LocalDate acquisitionDate;
     @Column(name = "custom_acquisition_date")
     protected String customAcquisitionDate;
     @Column(name = "gathering_annotation")
@@ -189,11 +188,11 @@ public class ImportRecord implements Serializable {
         this.gatheringNumber = gatheringNumber;
     }
 
-    public Date getSeparationDate() {
+    public LocalDate getSeparationDate() {
         return separationDate;
     }
 
-    public void setSeparationDate(Date separationDate) {
+    public void setSeparationDate(LocalDate separationDate) {
         this.separationDate = separationDate;
     }
 
@@ -309,11 +308,11 @@ public class ImportRecord implements Serializable {
         this.price = price;
     }
 
-    public Date getGatheringDate() {
+    public LocalDate getGatheringDate() {
         return gatheringDate;
     }
 
-    public void setGatheringDate(Date gatheringDate) {
+    public void setGatheringDate(LocalDate gatheringDate) {
         this.gatheringDate = gatheringDate;
     }
 
@@ -381,11 +380,11 @@ public class ImportRecord implements Serializable {
         this.habitat = habitat;
     }
 
-    public Date getAcquisitionDate() {
+    public LocalDate getAcquisitionDate() {
         return acquisitionDate;
     }
 
-    public void setAcquisitionDate(Date acquisitionDate) {
+    public void setAcquisitionDate(LocalDate acquisitionDate) {
         this.acquisitionDate = acquisitionDate;
     }
 

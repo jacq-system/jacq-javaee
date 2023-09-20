@@ -16,21 +16,21 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TblSpecimen.findAll", query = "SELECT t FROM TblSpecimen t")
     , @NamedQuery(name = "TblSpecimen.findBySpecimenId", query = "SELECT t FROM TblSpecimen t WHERE t.specimenId = :specimenId")
-    , @NamedQuery(name = "TblSpecimen.findByHerbarNumber", query = "SELECT t FROM TblSpecimen t WHERE t.herbarNumber = :herbarNumber")})
+    , @NamedQuery(name = "TblSpecimen.findByHerbarNumber", query = "SELECT t FROM TblSpecimen t WHERE t.herbarNumber = :herbarNumber")
+    , @NamedQuery(name = "TblSpecimen.findByBotanicalObjectId", query = "SELECT t FROM TblSpecimen t WHERE t.specimenId in (SELECT td.derivativeId FROM TblDerivative td WHERE td.botanicalObjectId = (:botanicalObjectId))")})
 public class TblSpecimen implements Serializable {
 
     private static final long serialVersionUID = 1L;

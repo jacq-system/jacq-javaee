@@ -18,10 +18,10 @@ package org.jacq.input.controller;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.input.ApplicationManager;
 import org.jacq.input.listener.OrganisationSelectListener;
@@ -32,7 +32,7 @@ import org.primefaces.model.TreeNode;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class OrganisationHierarchicSelectController implements Serializable {
 

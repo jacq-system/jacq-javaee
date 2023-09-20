@@ -16,7 +16,7 @@
 package org.jacq.service.rest.dataimport.impl;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.LocationResult;
 import org.jacq.common.rest.GatheringService;
 import org.jacq.service.dataimport.manager.GatheringManager;

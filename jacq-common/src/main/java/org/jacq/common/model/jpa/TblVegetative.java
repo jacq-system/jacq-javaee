@@ -16,24 +16,24 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -49,7 +49,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TblVegetative.findByCultivationDate", query = "SELECT t FROM TblVegetative t WHERE t.cultivationDate = :cultivationDate")
     , @NamedQuery(name = "TblVegetative.findByIndexSeminum", query = "SELECT t FROM TblVegetative t WHERE t.indexSeminum = :indexSeminum")
     , @NamedQuery(name = "TblVegetative.findByPlaceNumber", query = "SELECT t FROM TblVegetative t WHERE t.placeNumber = :placeNumber")
-    , @NamedQuery(name = "TblVegetative.findBySeparated", query = "SELECT t FROM TblVegetative t WHERE t.separated = :separated")})
+    , @NamedQuery(name = "TblVegetative.findBySeparated", query = "SELECT t FROM TblVegetative t WHERE t.separated = :separated")
+    , @NamedQuery(name = "TblVegetative.findByBotanicalObjectId", query = "SELECT v FROM TblVegetative v WHERE v.vegetativeId IN (SELECT td.derivativeId FROM TblDerivative td WHERE td.botanicalObjectId = :botanicalObjectId)")})
 public class TblVegetative implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,8 +64,7 @@ public class TblVegetative implements Serializable {
     @Column(name = "accession_number")
     private long accessionNumber;
     @Column(name = "cultivation_date")
-    @Temporal(TemporalType.DATE)
-    private Date cultivationDate;
+    private LocalDate cultivationDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "index_seminum")
@@ -117,11 +117,11 @@ public class TblVegetative implements Serializable {
         this.accessionNumber = accessionNumber;
     }
 
-    public Date getCultivationDate() {
+    public LocalDate getCultivationDate() {
         return cultivationDate;
     }
 
-    public void setCultivationDate(Date cultivationDate) {
+    public void setCultivationDate(LocalDate cultivationDate) {
         this.cultivationDate = cultivationDate;
     }
 

@@ -17,7 +17,7 @@ package org.jacq.service.rest.dataimport.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.dataimport.ImportFile;
 import org.jacq.common.rest.dataimport.DataImportService;
 import org.jacq.service.dataimport.manager.BromiMdbImportManager;
