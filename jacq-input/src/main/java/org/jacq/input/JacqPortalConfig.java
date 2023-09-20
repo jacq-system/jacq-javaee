@@ -15,9 +15,9 @@
  */
 package org.jacq.input;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
+import jakarta.annotation.ManagedBean;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.Singleton;
 import org.jacq.common.manager.JacqConfig;
 import org.jacq.common.rest.PortalService;
 import org.jacq.common.util.ServicesUtil;

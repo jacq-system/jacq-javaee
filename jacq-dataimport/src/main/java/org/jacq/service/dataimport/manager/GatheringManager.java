@@ -15,11 +15,11 @@
  */
 package org.jacq.service.dataimport.manager;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.jacq.common.manager.BaseGatheringManager;
 import org.jacq.common.util.ServicesUtil;
 import org.jacq.service.JacqServiceConfig;
@@ -28,7 +28,7 @@ import org.jacq.service.JacqServiceConfig;
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 public class GatheringManager extends BaseGatheringManager {
 
     @PersistenceContext

@@ -5,8 +5,8 @@
  */
 package org.jacq.common.rest.exception;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 
 /**
  * Main exception class to be used by REST service This is necessary because we can automatically fetch those exceptions

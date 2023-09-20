@@ -15,11 +15,11 @@
  */
 package org.jacq.service.output.manager;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.annotation.ManagedBean;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.jacq.common.manager.BaseDerivativeManager;
 
 /**

@@ -16,9 +16,9 @@
 package org.jacq.service.manager;
 
 import java.io.Serializable;
-import javax.annotation.ManagedBean;
-import javax.inject.Inject;
-import javax.security.enterprise.SecurityContext;
+import jakarta.annotation.ManagedBean;
+import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import org.jacq.common.model.rest.UserResult;
 import org.jacq.service.security.ServiceCallerPrincipal;
 

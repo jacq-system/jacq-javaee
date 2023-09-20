@@ -15,14 +15,14 @@
  */
 package org.jacq.service.dataimport.manager;
 
+import jakarta.inject.Named;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.jacq.common.model.dataimport.ImportRecord;
 
 /**
@@ -31,7 +31,7 @@ import org.jacq.common.model.dataimport.ImportRecord;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 public class DbViewImportManager {
 
     private static final Logger LOGGER = Logger.getLogger(DbViewImportManager.class.getName());

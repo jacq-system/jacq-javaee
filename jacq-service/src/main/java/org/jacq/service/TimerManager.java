@@ -15,9 +15,9 @@
  */
 package org.jacq.service;
 
-import javax.annotation.ManagedBean;
-import javax.ejb.Schedule;
-import javax.inject.Inject;
+import jakarta.annotation.ManagedBean;
+import jakarta.ejb.Schedule;
+import jakarta.inject.Inject;
 import org.jacq.service.manager.ImageServerManager;
 
 /**

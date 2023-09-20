@@ -17,21 +17,21 @@ package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TblNomSubstantive.findAll", query = "SELECT t FROM TblNomSubstantive t")
     , @NamedQuery(name = "TblNomSubstantive.findBySubstantiveId", query = "SELECT t FROM TblNomSubstantive t WHERE t.substantiveId = :substantiveId")
-    , @NamedQuery(name = "TblNomSubstantive.findBySubstantive", query = "SELECT t FROM TblNomSubstantive t WHERE t.substantive = :substantive")})
+    , @NamedQuery(name = "TblNomSubstantive.findBySubstantive", query = "SELECT t FROM TblNomSubstantive t WHERE t.substantive = :substantive")
+    , @NamedQuery(name = "TblNomSubstantive.findLikeSubstantive", query = "SELECT t FROM TblNomSubstantive t WHERE t.substantive LIKE :substantive")})
 public class TblNomSubstantive implements Serializable {
 
     private static final long serialVersionUID = 1L;

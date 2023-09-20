@@ -8,13 +8,12 @@ package org.jacq.input.controller;
 import org.jacq.input.SessionManager;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.CultivarResult;
 import org.jacq.common.model.rest.LocationResult;
 import org.jacq.common.model.rest.OrganisationResult;
@@ -34,7 +33,7 @@ import org.primefaces.event.SelectEvent;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class LivingPlantController implements Serializable, OrganisationSelectListener {
 
@@ -60,7 +59,7 @@ public class LivingPlantController implements Serializable, OrganisationSelectLi
 
     protected Boolean downloadRender;
 
-    @ManagedProperty(value = "#{organisationHierarchicSelectController}")
+    @Inject
     protected OrganisationHierarchicSelectController organisationHierarchicSelectController;
 
     @PostConstruct

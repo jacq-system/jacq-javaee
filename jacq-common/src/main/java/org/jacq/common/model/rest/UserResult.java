@@ -15,12 +15,12 @@
  */
 package org.jacq.common.model.rest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.jacq.common.model.jpa.FrmwrkUser;
 
 /**
@@ -39,7 +39,7 @@ public class UserResult {
     protected String firstname;
     protected String lastname;
     protected String titleSuffix;
-    protected Date birthdate;
+    protected LocalDate birthdate;
     protected Long userTypeId;
     protected String userType;
     protected Long employmentTypeId;
@@ -160,11 +160,11 @@ public class UserResult {
         this.titleSuffix = titleSuffix;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

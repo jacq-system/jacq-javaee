@@ -15,6 +15,8 @@
  */
 package org.jacq.common.util;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ws.rs.client.ClientRequestFilter;
+import jakarta.ws.rs.client.ClientRequestFilter;
 import org.jacq.common.external.rest.GeoNamesService;
 import org.jacq.common.external.rest.ImageServer;
 import org.jacq.common.rest.AcquisitionService;
@@ -133,13 +135,13 @@ public class ServicesUtil {
     }
 
     public static String getWorkLabelURL(String type, Long derivativeId) {
-        try {
+        try (ResteasyClient resteasyClient = (ResteasyClient) ClientBuilder.newClient()) {
             Map<String, Object> templateParams = new HashMap<>();
             templateParams.put("type", type);
             templateParams.put("derivative_id", derivativeId);
 
             Method workLabelMethod = LabelService.class.getMethod("getWork", String.class, Long.class);
-            ResteasyClient resteasyClient = new ResteasyClientBuilder().connectionPoolSize(20).build();
+
             ResteasyWebTarget resteasyWebTarget = resteasyClient.target(JACQ_SERVICE_REPORT_URL).path(LabelService.class).path(workLabelMethod).resolveTemplates(templateParams);
 
             return resteasyWebTarget.getUri().toString();
@@ -175,8 +177,9 @@ public class ServicesUtil {
      * @param serviceURI
      * @return
      */
-    protected static <T> T getProxy(Class<T> serviceInterfaceClass, String serviceURI, boolean noClientRequestFilters) {
-        ResteasyClient resteasyClient = new ResteasyClientBuilder().connectionPoolSize(20).build();
+    protected static <T> T getProxy(Class<T> serviceInterfaceClass, String serviceURI,
+        boolean noClientRequestFilters) {
+        Client resteasyClient = ClientBuilder.newBuilder().build();
         resteasyClient.register(new CustomDateParamConverterProvider());
 
         if (!noClientRequestFilters) {
@@ -185,7 +188,7 @@ public class ServicesUtil {
             }
         }
 
-        ResteasyWebTarget resteasyWebTarget = resteasyClient.target(serviceURI);
+        ResteasyWebTarget resteasyWebTarget = (ResteasyWebTarget) resteasyClient.target(serviceURI);
         return (T) resteasyWebTarget.proxy(serviceInterfaceClass);
     }
 }

@@ -15,28 +15,24 @@
  */
 package org.jacq.service.names.manager;
 
+import jakarta.inject.Named;
 import org.jacq.common.manager.NameParserManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
-import javax.annotation.Resource;
-import javax.enterprise.concurrent.ManagedExecutorService;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
+import jakarta.annotation.Resource;
+import jakarta.enterprise.concurrent.ManagedExecutorService;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.jacq.common.model.jpa.openup.TblCommonNamesCache;
 import org.jacq.common.model.jpa.openup.TblScientificNameCache;
 import org.jacq.common.model.names.CommonName;
@@ -52,7 +48,7 @@ import org.jacq.service.names.sources.ylist.YListSource;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @RequestScoped
 @Transactional
 public class CommonNameManager {

@@ -6,7 +6,7 @@
 package org.jacq.service.rest.impl;
 
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.AcquisitionSourceResult;
 import org.jacq.common.rest.AcquisitionService;
 import org.jacq.service.manager.AcquisitionManager;

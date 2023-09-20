@@ -17,7 +17,7 @@ package org.jacq.service.rest.impl;
 
 import java.util.Date;
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.AccessOrganisationResult;
 import org.jacq.common.rest.AuthorizationService;
 import org.jacq.service.manager.AuthorizationManager;

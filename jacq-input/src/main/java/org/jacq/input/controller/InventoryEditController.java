@@ -15,30 +15,31 @@
  */
 package org.jacq.input.controller;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.InventoryResult;
 import org.jacq.common.model.rest.InventoryTypeResult;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.rest.InventoryService;
 import org.jacq.common.rest.OrganisationService;
 import org.jacq.common.util.ServicesUtil;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 
 /**
  *
  * @author fhafner
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class InventoryEditController {
+public class InventoryEditController implements Serializable {
 
     @Inject
     protected SessionController sessionController;
@@ -75,7 +76,7 @@ public class InventoryEditController {
 
     public String edit() {
         try {
-            this.inventory.setFileContent(new String(Base64.getEncoder().encode(this.file.getContents()), "ASCII"));
+            this.inventory.setFileContent(new String(Base64.getEncoder().encode(this.file.getContent()), "ASCII"));
             this.inventory.setSeparated(separated);
             this.inventory = this.inventoryService.save(this.inventory);
 

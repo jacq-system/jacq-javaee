@@ -19,16 +19,15 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.jacq.common.model.rest.AcquisitionSourceResult;
 import org.jacq.common.model.rest.AcquistionEventSourceResult;
@@ -74,7 +73,7 @@ import org.primefaces.model.StreamedContent;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class LivingPlantEditController implements OrganisationSelectListener, Serializable {
 
@@ -164,7 +163,7 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
 
     protected CultivarResult cultivarResult;
 
-    @ManagedProperty(value = "#{organisationHierarchicSelectController}")
+    @Inject()
     protected OrganisationHierarchicSelectController organisationHierarchicSelectController;
 
     @PostConstruct
@@ -513,7 +512,11 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
         Response response = this.labelService.getWork(this.livingPlantResult.getType(), this.livingPlantResult.getDerivativeId());
         byte[] binaryStream = response.readEntity(byte[].class);
 
-        return new DefaultStreamedContent(this.labelService.getWork(this.livingPlantResult.getType(), this.livingPlantResult.getDerivativeId()).readEntity(InputStream.class), LabelService.APPLICATION_PDF, "work_label.pdf");
+        return DefaultStreamedContent.builder()
+            .name("work_label.pdf")
+            .contentType(LabelService.APPLICATION_PDF)
+            .stream(() -> this.labelService.getWork(this.livingPlantResult.getType(), this.livingPlantResult.getDerivativeId()).readEntity(InputStream.class))
+            .build();
     }
 
     /**

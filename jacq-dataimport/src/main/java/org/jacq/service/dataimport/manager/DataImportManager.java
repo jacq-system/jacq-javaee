@@ -15,11 +15,13 @@
  */
 package org.jacq.service.dataimport.manager;
 
+import jakarta.inject.Named;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Base64;
@@ -29,12 +31,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
@@ -77,7 +78,7 @@ import org.jacq.service.dataimport.util.ServicesUtil;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @Transactional
 public class DataImportManager {
 
@@ -100,7 +101,7 @@ public class DataImportManager {
 
     protected GatheringService gatheringService;
 
-    protected SimpleDateFormat separationDateFormat = new SimpleDateFormat("YYYY-mm-dd");
+    protected DateTimeFormatter separationDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     protected Pattern coordinatePattern = Pattern.compile("([N|S|W|E])(\\d+)°(\\d+)'(\\d+)\"");
 
@@ -143,7 +144,7 @@ public class DataImportManager {
             importRecord.setLivingPlantNumber(record.get(i++));
             importRecord.setOriginalId(Long.valueOf(record.get(i++)));
             importRecord.setGatheringNumber(record.get(i++));
-            importRecord.setSeparationDate(separationDateFormat.parse(record.get(i++)));
+            importRecord.setSeparationDate(LocalDate.parse(record.get(i++), separationDateFormat));
             importRecord.setSeparationType(record.get(i++));
             importRecord.setLabelAnnotation(record.get(i++));
             importRecord.setAlternativeLivingPlantNumber(record.get(i++));
@@ -158,7 +159,7 @@ public class DataImportManager {
             importRecord.setCultivar(record.get(i++));
             importRecord.setCommonNames(record.get(i++));
             importRecord.setPrice(Float.valueOf(record.get(i++)));
-            importRecord.setGatheringDate(separationDateFormat.parse(record.get(i++)));
+            importRecord.setGatheringDate(LocalDate.parse(record.get(i++), separationDateFormat));
             importRecord.setGatheringSource(record.get(i++));
             importRecord.setAltitudeMin(Long.valueOf(record.get(i++)));
             importRecord.setAltitudeMax(Long.valueOf(record.get(i++)));
@@ -167,7 +168,7 @@ public class DataImportManager {
             importRecord.setGatheringLocation(record.get(i++));
             importRecord.setDefaultScientificNameId(Long.valueOf(record.get(i++)));
             importRecord.setHabitat(record.get(i++));
-            importRecord.setAcquisitionDate(separationDateFormat.parse(record.get(i++)));
+            importRecord.setAcquisitionDate(LocalDate.parse(record.get(i++), separationDateFormat));
             importRecord.setCustomAcquisitionDate(record.get(i++));
             importRecord.setGatheringAnnotation(record.get(i++));
             importRecord.setLatitude(record.get(i++));
@@ -302,9 +303,9 @@ public class DataImportManager {
                     tblAcquisitionDate.setCustom(importRecord.getCustomAcquisitionDate());
                 }
                 if (importRecord.getAcquisitionDate() != null) {
-                    tblAcquisitionDate.setYear(String.valueOf(importRecord.getAcquisitionDate().getYear() + 1900));
-                    tblAcquisitionDate.setMonth(String.valueOf(importRecord.getAcquisitionDate().getMonth() + 1));
-                    tblAcquisitionDate.setDay(String.valueOf(importRecord.getAcquisitionDate().getDate()));
+                    tblAcquisitionDate.setYear(String.valueOf(importRecord.getAcquisitionDate().getYear()));
+                    tblAcquisitionDate.setMonth(String.valueOf(importRecord.getAcquisitionDate().getMonthValue()));
+                    tblAcquisitionDate.setDay(String.valueOf(importRecord.getAcquisitionDate().getDayOfMonth()));
                 } else {
                     tblAcquisitionDate.setYear(null);
                     tblAcquisitionDate.setMonth(null);

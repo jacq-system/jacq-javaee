@@ -15,13 +15,13 @@
  */
 package org.jacq.input.controller;
 
+import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import org.jacq.common.model.rest.RoleResult;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.model.rest.UserResult;
@@ -37,9 +37,9 @@ import org.primefaces.event.SelectEvent;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class OrganisationEditController implements OrganisationSelectListener {
+public class OrganisationEditController implements Serializable, OrganisationSelectListener {
 
     @Inject
     protected SessionController sessionController;
@@ -64,7 +64,7 @@ public class OrganisationEditController implements OrganisationSelectListener {
 
     protected List<RoleResult> roles;
 
-    @ManagedProperty(value = "#{organisationHierarchicSelectController}")
+    @Inject
     protected OrganisationHierarchicSelectController organisationHierarchicSelectController;
 
     @PostConstruct

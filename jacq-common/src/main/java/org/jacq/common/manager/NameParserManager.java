@@ -15,22 +15,18 @@
  */
 package org.jacq.common.manager;
 
-import java.io.BufferedInputStream;
+import jakarta.inject.Named;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
+import jakarta.annotation.PostConstruct;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 import org.jacq.common.model.names.NameParserResponse;
 
 /**
@@ -43,7 +39,7 @@ import org.jacq.common.model.names.NameParserResponse;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 public class NameParserManager {
 
     private static final Logger LOGGER = Logger.getLogger(NameParserManager.class.getName());

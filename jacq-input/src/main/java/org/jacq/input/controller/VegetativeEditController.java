@@ -17,10 +17,10 @@ package org.jacq.input.controller;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.ws.rs.core.Response;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.ws.rs.core.Response;
 import org.jacq.common.model.rest.OrganisationResult;
 import org.jacq.common.model.rest.PhenologyResult;
 import org.jacq.common.model.rest.SeparationResult;
@@ -33,7 +33,7 @@ import org.jacq.common.util.ServicesUtil;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class VegetativeEditController implements Serializable {
 

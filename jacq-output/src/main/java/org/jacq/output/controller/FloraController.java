@@ -15,10 +15,11 @@
  */
 package org.jacq.output.controller;
 
+import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
 import org.jacq.common.util.ServicesUtil;
 import org.jacq.output.view.LazyClassificationTreeNode;
 import org.primefaces.model.TreeNode;
@@ -27,9 +28,9 @@ import org.primefaces.model.TreeNode;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class FloraController {
+public class FloraController implements Serializable {
 
     private static Logger LOGGER = Logger.getLogger(FloraController.class.getName());
 

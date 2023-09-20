@@ -2,11 +2,11 @@ package org.jacq.service.manager;
 
 import java.io.Serializable;
 import java.util.UUID;
-import javax.annotation.ManagedBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.ws.rs.NotFoundException;
+import jakarta.annotation.ManagedBean;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.ws.rs.NotFoundException;
 import org.jacq.common.model.jpa.SrvcUuidMinter;
 import org.jacq.common.model.jpa.SrvcUuidMinterType;
 import org.jacq.common.rest.UuidService;

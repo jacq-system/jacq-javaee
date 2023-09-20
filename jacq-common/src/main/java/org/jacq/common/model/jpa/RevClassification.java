@@ -16,25 +16,26 @@
 package org.jacq.common.model.jpa;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -58,7 +59,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "RevClassification.findByTimestamp", query = "SELECT r FROM RevClassification r WHERE r.timestamp = :timestamp")
     , @NamedQuery(name = "RevClassification.findByParentScientificNameId", query = "SELECT r FROM RevClassification r WHERE r.parentScientificNameId = :parentScientificNameId")
     , @NamedQuery(name = "RevClassification.findByNumber", query = "SELECT r FROM RevClassification r WHERE r.number = :number")
-    , @NamedQuery(name = "RevClassification.findByOrder", query = "SELECT r FROM RevClassification r WHERE r.order = :order")})
+    , @NamedQuery(name = "RevClassification.findByOrder", query = "SELECT r FROM RevClassification r WHERE r.order = :order")
+    , @NamedQuery(name = "RevClassification.findByUuidMinterIdAndParent", query = "SELECT r FROM RevClassification r WHERE r.uuidMinterId = :uuidMinterId AND r.accScientificNameId = :accScientificNameId ORDER BY r.order ASC, r.scientificName ASC")
+    , @NamedQuery(name = "RevClassification.findByUuidMinterIdAndTopLevel", query = "SELECT r FROM RevClassification r WHERE r.uuidMinterId = :uuidMinterId AND r.accScientificNameId IS NULL ORDER BY r.order ASC, r.scientificName ASC")
+    , @NamedQuery(name = "RevClassification.findByUuidMinterIdAndTopLevelAndProvinceId", query = "SELECT r FROM RevClassification r WHERE r.uuidMinterId = :uuidMinterId AND r.accScientificNameId IS NULL AND r.provinceIds LIKE :provinceId ORDER BY r.order ASC, r.scientificName ASC")})
 public class RevClassification implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,8 +82,7 @@ public class RevClassification implements Serializable {
     @Column(name = "acc_scientific_name_id")
     private Long accScientificNameId;
     @Column(name = "ref_date")
-    @Temporal(TemporalType.DATE)
-    private Date refDate;
+    private LocalDate refDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "preferred_taxonomy")
@@ -185,11 +188,11 @@ public class RevClassification implements Serializable {
         this.accScientificNameId = accScientificNameId;
     }
 
-    public Date getRefDate() {
+    public LocalDate getRefDate() {
         return refDate;
     }
 
-    public void setRefDate(Date refDate) {
+    public void setRefDate(LocalDate refDate) {
         this.refDate = refDate;
     }
 

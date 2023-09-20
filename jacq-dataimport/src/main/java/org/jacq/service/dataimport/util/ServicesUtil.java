@@ -15,13 +15,13 @@
  */
 package org.jacq.service.dataimport.util;
 
-import org.jacq.common.rest.OrganisationService;
-import org.jacq.common.rest.filter.ContentTypeResponseFilter;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import org.jacq.common.external.rest.ScientificNamesService;
 import org.jacq.common.rest.GatheringService;
+import org.jacq.common.rest.OrganisationService;
+import org.jacq.common.rest.filter.ContentTypeResponseFilter;
 import org.jacq.service.dataimport.security.BasicClientRequestFilter;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 /**
@@ -47,10 +47,11 @@ public class ServicesUtil {
     }
 
     protected static <T> T getProxy(Class<T> serviceInterfaceClass, String serviceURI) {
-        ResteasyClient resteasyClient = new ResteasyClientBuilder().connectionPoolSize(20).build();
+        Client resteasyClient = ClientBuilder.newBuilder().build();
         resteasyClient.register(new ContentTypeResponseFilter());
         resteasyClient.register(new BasicClientRequestFilter("dataimport", "dataimport"));
-        ResteasyWebTarget resteasyWebTarget = resteasyClient.target(serviceURI);
+
+        ResteasyWebTarget resteasyWebTarget = (ResteasyWebTarget) resteasyClient.target(serviceURI);
         return (T) resteasyWebTarget.proxy(serviceInterfaceClass);
     }
 }

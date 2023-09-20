@@ -16,9 +16,9 @@
 package org.jacq.service.rest.impl;
 
 import java.util.List;
-import javax.annotation.ManagedBean;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
+import jakarta.annotation.ManagedBean;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Response;
 import org.jacq.service.manager.DerivativeManager;
 import org.jacq.common.model.jpa.custom.BotanicalObjectDerivative;
 import org.jacq.common.model.rest.BotanicalObjectDownloadResult;

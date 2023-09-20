@@ -15,20 +15,15 @@
  */
 package org.jacq.service.names.manager;
 
+import jakarta.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.ManagedBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
-import org.jacq.common.model.jpa.TblCultivar;
-import org.jacq.common.model.jpa.TblHabitusType;
-import org.jacq.common.model.jpa.TblNomEpithet;
-import org.jacq.common.model.jpa.TblNomName;
-import org.jacq.common.model.jpa.TblNomSubstantive;
-import org.jacq.common.model.jpa.TblScientificNameInformation;
+import org.jacq.common.model.jpa.*;
 import org.jacq.common.model.rest.CultivarResult;
 import org.jacq.common.model.rest.HabitusTypeResult;
 import org.jacq.common.model.rest.ScientificNameInformationResult;
@@ -40,7 +35,7 @@ import org.jacq.common.rest.names.ScientificNameService;
  *
  * @author wkoller
  */
-@ManagedBean
+@Named
 public class ScientificNameManager {
 
     @PersistenceContext(unitName = "jacq-names")
@@ -119,10 +114,13 @@ public class ScientificNameManager {
      */
     @Transactional
     public ScientificNameResult load(Long scientificNameId) {
-        TblNomName nomName = em.find(TblNomName.class, scientificNameId);
+//        TblNomName nomName = em.find(TblNomName.class, scientificNameId);
+        TypedQuery<ScientificName> genusQuery = em.createNamedQuery("TblNomName.findNameIdAndScientificName", ScientificName.class);
+        genusQuery.setParameter("scientificNameId", scientificNameId);
 
-        if (nomName != null) {
-            return new ScientificNameResult(nomName);
+        ScientificName scientificName = genusQuery.getSingleResult();
+        if (scientificName != null) {
+            return new ScientificNameResult(scientificName.getScientificName(), scientificName.getNameId());
 
         }
         return null;

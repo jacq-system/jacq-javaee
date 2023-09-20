@@ -16,14 +16,13 @@
 package org.jacq.input.view;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.jacq.common.model.rest.TreeRecordFileResult;
 import org.jacq.common.rest.TreeRecordFileService;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+import org.primefaces.model.SortMeta;
 
 /**
  * Lazy loading data model for botanical object searches
@@ -66,20 +65,39 @@ public class LazyTreeRecordFileDataModel extends LazyDataModel<TreeRecordFileRes
     }
 
     @Override
-    public Object getRowKey(TreeRecordFileResult treeRecordFileResult) {
-        return treeRecordFileResult.getTreeRecordFileId();
+    public String getRowKey(TreeRecordFileResult treeRecordFileResult) {
+        return treeRecordFileResult.getTreeRecordFileId().toString();
     }
 
     @Override
-    public List<TreeRecordFileResult> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public int count(Map<String, FilterMeta> filters) {
+        return this.getRowCount();
+    }
+
+    @Override
+    public List<TreeRecordFileResult> load(int first, int pageSize,
+        Map<String, SortMeta> sortFields,
+        Map<String, FilterMeta> filters) {
 
         // get count first
-        int rowCount = this.treeRecordFileService.searchCount(filters.get("treeRecordFileId") != null ? Long.parseLong(filters.get("treeRecordFileId").toString()) : null, filters.get("year") != null ? Long.parseLong(filters.get("year").toString()) : null, filters.get("name") != null ? filters.get("name").toString() : null, filters.get("documentNumber") != null ? filters.get("documentNumber").toString() : null);
+        int rowCount = this.treeRecordFileService.searchCount(
+            filters.get("treeRecordFileId") != null ? Long.parseLong(
+                filters.get("treeRecordFileId").getFilterValue().toString()) : null,
+            filters.get("year") != null ? Long.parseLong(filters.get("year").getFilterValue().toString()) : null,
+            filters.get("name") != null ? filters.get("name").getFilterValue().toString() : null,
+            filters.get("documentNumber") != null ? filters.get("documentNumber").getFilterValue().toString()
+                : null);
         this.setRowCount(rowCount);
 
         List<TreeRecordFileResult> results = new ArrayList<>();
         if (rowCount > 0) {
-            results = this.treeRecordFileService.search(filters.get("treeRecordFileId") != null ? Long.parseLong(filters.get("treeRecordFileId").toString()) : null, filters.get("year") != null ? Long.parseLong(filters.get("year").toString()) : null, filters.get("name") != null ? filters.get("name").toString() : null, filters.get("documentNumber") != null ? filters.get("documentNumber").toString() : null, first, pageSize);
+            results = this.treeRecordFileService.search(
+                filters.get("treeRecordFileId") != null ? Long.parseLong(
+                    filters.get("treeRecordFileId").getFilterValue().toString()) : null,
+                filters.get("year") != null ? Long.parseLong(filters.get("year").getFilterValue().toString()) : null,
+                filters.get("name") != null ? filters.get("name").getFilterValue().toString() : null,
+                filters.get("documentNumber") != null ? filters.get("documentNumber").getFilterValue().toString()
+                    : null, first, pageSize);
         }
 
         return results;
