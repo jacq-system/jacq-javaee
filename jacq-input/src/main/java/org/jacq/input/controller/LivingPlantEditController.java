@@ -156,10 +156,10 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
     protected List<CertificateTypeResult> certificateTypes;
 
     protected List<SelectItem> sexes;
-    protected List<String> selectedSexes;
+    protected List<Long> selectedSexes;
 
     protected List<SelectItem> labelTypes;
-    protected List<String> selectedLabelTypes;
+    protected List<Long> selectedLabelTypes;
 
     protected CultivarResult cultivarResult;
 
@@ -353,13 +353,13 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
     public void save() {
         // convert selected sex entries to SexResult(s)
         this.livingPlantResult.getSexes().clear();
-        for (String sexId : this.selectedSexes) {
-            this.livingPlantResult.getSexes().add(new SexResult(Long.parseLong(sexId)));
+        for (Long sexId : this.selectedSexes) {
+            this.livingPlantResult.getSexes().add(new SexResult(sexId));
         }
         // convert selected label type entries to LabelTypeResult(s)
         this.livingPlantResult.getLabelTypes().clear();
-        for (String labelTypeId : this.selectedLabelTypes) {
-            this.livingPlantResult.getLabelTypes().add(new LabelTypeResult(Long.parseLong(labelTypeId)));
+        for (Long labelTypeId : this.selectedLabelTypes) {
+            this.livingPlantResult.getLabelTypes().add(new LabelTypeResult(labelTypeId));
         }
         // convert selected relevancy tpes entries
         this.livingPlantResult.getRelevancyTypes().clear();
@@ -402,12 +402,12 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
 
         // convert selected sex entries
         for (SexResult sex : this.livingPlantResult.getSexes()) {
-            this.selectedSexes.add(sex.getSexId().toString());
+            this.selectedSexes.add(sex.getSexId());
         }
 
         // convert selected label-type entries
         for (LabelTypeResult labelType : this.livingPlantResult.getLabelTypes()) {
-            this.selectedLabelTypes.add(labelType.getLabelTypeId().toString());
+            this.selectedLabelTypes.add(labelType.getLabelTypeId());
         }
 
         // convert selected relevancy-type entries
@@ -613,11 +613,11 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
         return sexes;
     }
 
-    public List<String> getSelectedSexes() {
+    public List<Long> getSelectedSexes() {
         return selectedSexes;
     }
 
-    public void setSelectedSexes(List<String> selectedSexes) {
+    public void setSelectedSexes(List<Long> selectedSexes) {
         this.selectedSexes = selectedSexes;
     }
 
@@ -625,11 +625,11 @@ public class LivingPlantEditController implements OrganisationSelectListener, Se
         return labelTypes;
     }
 
-    public List<String> getSelectedLabelTypes() {
+    public List<Long> getSelectedLabelTypes() {
         return selectedLabelTypes;
     }
 
-    public void setSelectedLabelTypes(List<String> selectedLabelTypes) {
+    public void setSelectedLabelTypes(List<Long> selectedLabelTypes) {
         this.selectedLabelTypes = selectedLabelTypes;
     }
 

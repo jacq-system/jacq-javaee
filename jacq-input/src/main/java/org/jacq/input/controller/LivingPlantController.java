@@ -7,6 +7,7 @@ package org.jacq.input.controller;
 
 import org.jacq.input.SessionManager;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
@@ -14,6 +15,7 @@ import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
+import jakarta.faces.component.UIComponent;
 import org.jacq.common.model.rest.CultivarResult;
 import org.jacq.common.model.rest.LocationResult;
 import org.jacq.common.model.rest.OrganisationResult;
@@ -28,6 +30,13 @@ import org.jacq.input.view.DerivativeSearchModel;
 import org.jacq.input.view.LazyDerivativeDataModel;
 import org.jacq.input.view.LazyDerivativeDownloadDataModel;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.column.Column;
+import org.primefaces.component.api.UIColumn;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
 
 /**
  *
@@ -163,6 +172,55 @@ public class LivingPlantController implements Serializable, OrganisationSelectLi
 
     public void setOrganisationHierarchicSelectController(OrganisationHierarchicSelectController organisationHierarchicSelectController) {
         this.organisationHierarchicSelectController = organisationHierarchicSelectController;
+    }
+
+    public void postProcessXlsx(Object document) {
+        if (document == null) {
+            return;
+        }
+
+        try {
+            Workbook workbook = (Workbook) document;
+            Sheet sheet = workbook.getNumberOfSheets() > 0 ? workbook.getSheetAt(0) : workbook.createSheet("Export");
+
+            // Locate the export table to extract header labels
+            FacesContext fc = FacesContext.getCurrentInstance();
+            UIComponent comp = fc.getViewRoot().findComponent("jacq_form:downloadDerivativeTable");
+            if (!(comp instanceof DataTable)) {
+                return;
+            }
+            DataTable dataTable = (DataTable) comp;
+
+            List<UIColumn> uiColumns = dataTable.getColumns();
+            List<String> headers = new ArrayList<>();
+            for (UIColumn uiCol : uiColumns) {
+                String headerText = null;
+                if (uiCol instanceof Column) {
+                    Column col = (Column) uiCol;
+                    Object exportHeader = col.getExportHeaderValue();
+                    if (exportHeader != null) {
+                        headerText = exportHeader.toString();
+                    } else {
+                        headerText = col.getHeaderText();
+                    }
+                }
+                headers.add(headerText != null ? headerText : "");
+            }
+
+            // Shift existing rows down to insert header at row 0
+            int lastRowNum = sheet.getLastRowNum();
+            if (lastRowNum >= 0 || sheet.getPhysicalNumberOfRows() > 0) {
+                sheet.shiftRows(0, lastRowNum, 1, true, false);
+            }
+
+            Row headerRow = sheet.createRow(0);
+            for (int c = 0; c < headers.size(); c++) {
+                Cell cell = headerRow.createCell(c);
+                cell.setCellValue(headers.get(c));
+            }
+        } catch (ClassCastException e) {
+            // If document is not a Workbook (shouldn't happen for type=xlsx), ignore gracefully
+        }
     }
 
 }
