@@ -307,17 +307,57 @@ public class LivingPlantManager {
         em.persist(tblLivingPlant);
 
         // save alternative accession numbers
+        // ensure list initialized
+        if (tblLivingPlant.getTblAlternativeAccessionNumberList() == null) {
+            tblLivingPlant.setTblAlternativeAccessionNumberList(new ArrayList<>());
+        }
+
+        // remove deleted alternative accession numbers (present in DB but not in incoming list)
+        List<TblAlternativeAccessionNumber> removeAltAccNos = new ArrayList<>();
+        for (TblAlternativeAccessionNumber existingAlt : tblLivingPlant.getTblAlternativeAccessionNumberList()) {
+            boolean contains = false;
+            for (AlternativeAccessionNumberResult incomingAlt : livingPlantResult.getAlternativeAccessionNumbers()) {
+                if (incomingAlt.getAlternativeAccessionNumberId() != null
+                        && Objects.equals(existingAlt.getId(), incomingAlt.getAlternativeAccessionNumberId())) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (!contains) {
+                removeAltAccNos.add(existingAlt);
+            }
+        }
+        for (TblAlternativeAccessionNumber toRemove : removeAltAccNos) {
+            tblLivingPlant.getTblAlternativeAccessionNumberList().remove(toRemove);
+            em.remove(toRemove);
+        }
+
+        // add or update alternative accession numbers from incoming list
         for (AlternativeAccessionNumberResult alternativeAccessionNumber : livingPlantResult.getAlternativeAccessionNumbers()) {
-            TblAlternativeAccessionNumber tblAlternativeAccessionNumber = null;
+            // skip completely empty values to avoid storing blank rows
+            if (alternativeAccessionNumber.getNumber() == null || alternativeAccessionNumber.getNumber().trim().isEmpty()) {
+                continue;
+            }
+
+            TblAlternativeAccessionNumber tblAlternativeAccessionNumber;
             if (alternativeAccessionNumber.getAlternativeAccessionNumberId() != null) {
+                // update existing
                 tblAlternativeAccessionNumber = em.find(TblAlternativeAccessionNumber.class, alternativeAccessionNumber.getAlternativeAccessionNumberId());
+                if (tblAlternativeAccessionNumber == null) {
+                    tblAlternativeAccessionNumber = new TblAlternativeAccessionNumber();
+                }
             } else {
+                // create new
                 tblAlternativeAccessionNumber = new TblAlternativeAccessionNumber();
             }
 
             // set properties
             tblAlternativeAccessionNumber.setLivingPlantId(tblLivingPlant);
             tblAlternativeAccessionNumber.setNumber(alternativeAccessionNumber.getNumber());
+
+            if (!tblLivingPlant.getTblAlternativeAccessionNumberList().contains(tblAlternativeAccessionNumber)) {
+                tblLivingPlant.getTblAlternativeAccessionNumberList().add(tblAlternativeAccessionNumber);
+            }
 
             // save alternative accession number
             em.persist(tblAlternativeAccessionNumber);
@@ -352,12 +392,38 @@ public class LivingPlantManager {
         if (tblDerivative.getTblSeparationList() == null) {
             tblDerivative.setTblSeparationList(new ArrayList<TblSeparation>());
         }
-        tblDerivative.getTblSeparationList().clear();
+
+        // remove deleted separations (those present in DB but not in incoming list)
+        List<TblSeparation> removeSeparations = new ArrayList<>();
+        for (TblSeparation existingSeparation : tblDerivative.getTblSeparationList()) {
+            boolean contains = false;
+            for (SeparationResult separation : livingPlantResult.getSeparations()) {
+                if (separation.getSeparationId() != null && Objects.equals(existingSeparation.getSeparationId(), separation.getSeparationId())) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (!contains) {
+                removeSeparations.add(existingSeparation);
+            }
+        }
+        for (TblSeparation toRemove : removeSeparations) {
+            tblDerivative.getTblSeparationList().remove(toRemove);
+            em.remove(toRemove);
+        }
+
+        // add or update separations from incoming list
         for (SeparationResult separation : livingPlantResult.getSeparations()) {
-            TblSeparation tblSeparation = null;
+            TblSeparation tblSeparation;
             if (separation.getSeparationId() != null) {
+                // update existing
                 tblSeparation = em.find(TblSeparation.class, separation.getSeparationId());
+                if (tblSeparation == null) {
+                    // fallback: create if not found (should not happen normally)
+                    tblSeparation = new TblSeparation();
+                }
             } else {
+                // create new
                 tblSeparation = new TblSeparation();
             }
 
@@ -365,12 +431,22 @@ public class LivingPlantManager {
             tblSeparation.setDerivativeId(tblDerivative);
             tblSeparation.setDate(separation.getDate());
             tblSeparation.setAnnotation(separation.getAnnotation());
-            tblSeparation.setSeparationTypeId(em.find(TblSeparationType.class, separation.getSeparationType().getSeparationTypeId()));
+            if (separation.getSeparationType() != null && separation.getSeparationType().getSeparationTypeId() != null) {
+                tblSeparation.setSeparationTypeId(em.find(TblSeparationType.class, separation.getSeparationType().getSeparationTypeId()));
+            } else {
+                tblSeparation.setSeparationTypeId(null);
+            }
 
-            tblDerivative.getTblSeparationList().add(tblSeparation);
+            if (!tblDerivative.getTblSeparationList().contains(tblSeparation)) {
+                tblDerivative.getTblSeparationList().add(tblSeparation);
+            }
 
-            // save separation
-            em.persist(tblSeparation);
+            // persist or merge as needed
+            if (separation.getSeparationId() == null) {
+                em.persist(tblSeparation);
+            } else {
+                em.merge(tblSeparation);
+            }
         }
 
         // remove deleted acquisition event sources

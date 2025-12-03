@@ -261,123 +261,123 @@
                             <p:dataExporter type="csv"  target="downloadDerivativeTable" fileName="derivativeTable"/>
                         </p:commandButton>
                         <p:commandButton  style="float: right;" id="downloadDerivativeXlsxButton" value="Export" ajax="false" widgetVar="downloadDerivativeXlsxButton">
-                            <p:dataExporter type="xlsx"  target="downloadDerivativeTable" fileName="derivativeTable"/>
+                            <p:dataExporter type="xlsx"  target="downloadDerivativeTable" fileName="derivativeTable" postProcessor="#{livingPlantController.postProcessXlsx}"/>
                         </p:commandButton>
                         <p:tooltip for="downloadDerivativeXlsxButton" value="Xslx Download" />
                         <p:dataTable rendered="#{livingPlantController.downloadRender}" var="botanicalObjectDownloadResult" lazy="true" value="#{livingPlantController.downloadDataModel}" paginator="true" rows="1" id="downloadDerivativeTable">
-                            <p:column headerText="#{messages['livingplant.derivative_id']}">
+                            <p:column headerText="#{messages['livingplant.derivative_id']}" exportHeaderValue="#{messages['livingplant.derivative_id']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.derivativeId}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.scientificname']}">
+                            <p:column headerText="#{messages['livingplant.scientificname']}" exportHeaderValue="#{messages['livingplant.scientificname']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.scientificName}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.location']}">
+                            <p:column headerText="#{messages['livingplant.location']}" exportHeaderValue="#{messages['livingplant.location']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.organisationDescription}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.accessionnumber']}">
+                            <p:column headerText="#{messages['livingplant.accessionnumber']}" exportHeaderValue="#{messages['livingplant.accessionnumber']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.accessionNumber}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.aquesitionLocation']}">
+                            <p:column headerText="#{messages['livingplant.aquesitionLocation']}" exportHeaderValue="#{messages['livingplant.aquesitionLocation']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.aquesitionLocation}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.placenumber']}">
+                            <p:column headerText="#{messages['livingplant.placenumber']}" exportHeaderValue="#{messages['livingplant.placenumber']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.placeNumber}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.family']}">
+                            <p:column headerText="#{messages['livingplant.family']}" exportHeaderValue="#{messages['livingplant.family']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.family}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.labelsynonymscientificname']}">
+                            <p:column headerText="#{messages['livingplant.labelsynonymscientificname']}" exportHeaderValue="#{messages['livingplant.labelsynonymscientificname']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.labelSynonymScientificName}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.commonnames']}">
+                            <p:column headerText="#{messages['livingplant.commonnames']}" exportHeaderValue="#{messages['livingplant.commonnames']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.commonNames}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.spatialdistribution']}">
+                            <p:column headerText="#{messages['livingplant.spatialdistribution']}" exportHeaderValue="#{messages['livingplant.spatialdistribution']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.spatialDistribution}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.familyreference']}">
+                            <p:column headerText="#{messages['livingplant.familyreference']}" exportHeaderValue="#{messages['livingplant.familyreference']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.familyReference}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.labelannotation']}">
+                            <p:column headerText="#{messages['livingplant.labelannotation']}" exportHeaderValue="#{messages['livingplant.labelannotation']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.labelAnnotation}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.scientificnamenoauthor']}">
+                            <p:column headerText="#{messages['livingplant.scientificnamenoauthor']}" exportHeaderValue="#{messages['livingplant.scientificnamenoauthor']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.scientificNameNoAuthor}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.scientificnameauthor']}">
+                            <p:column headerText="#{messages['livingplant.scientificnameauthor']}" exportHeaderValue="#{messages['livingplant.scientificnameauthor']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.scientificNameAuthor}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.familynoauthor']}">
+                            <p:column headerText="#{messages['livingplant.familynoauthor']}" exportHeaderValue="#{messages['livingplant.familynoauthor']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.familyNoAuthor}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.familyauthor']}">
+                            <p:column headerText="#{messages['livingplant.familyauthor']}" exportHeaderValue="#{messages['livingplant.familyauthor']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.familyAuthor}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.type']}">
+                            <p:column headerText="#{messages['livingplant.type']}" exportHeaderValue="#{messages['livingplant.type']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.indexSeminumType}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.ipennumber']}">
+                            <p:column headerText="#{messages['livingplant.ipennumber']}" exportHeaderValue="#{messages['livingplant.ipennumber']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.ipenNumber}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.habitat']}">
+                            <p:column headerText="#{messages['livingplant.habitat']}" exportHeaderValue="#{messages['livingplant.habitat']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.habitat}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.gatheringNumber']}">
+                            <p:column headerText="#{messages['livingplant.gatheringNumber']}" exportHeaderValue="#{messages['livingplant.gatheringNumber']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.gatheringNumber}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.altitudemin']}">
+                            <p:column headerText="#{messages['livingplant.altitudemin']}" exportHeaderValue="#{messages['livingplant.altitudemin']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.altitudeMin}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.altitudemax']}">
+                            <p:column headerText="#{messages['livingplant.altitudemax']}" exportHeaderValue="#{messages['livingplant.altitudemax']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.altitudeMax}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.latitude']}">
+                            <p:column headerText="#{messages['livingplant.latitude']}" exportHeaderValue="#{messages['livingplant.latitude']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.latitude}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.longitude']}">
+                            <p:column headerText="#{messages['livingplant.longitude']}" exportHeaderValue="#{messages['livingplant.longitude']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.longitude}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.collectiondate']}">
+                            <p:column headerText="#{messages['livingplant.collectiondate']}" exportHeaderValue="#{messages['livingplant.collectiondate']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.acquisitionDate}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.collectorname']}">
+                            <p:column headerText="#{messages['livingplant.collectorname']}" exportHeaderValue="#{messages['livingplant.collectorname']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.person}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.cultivarname']}">
+                            <p:column headerText="#{messages['livingplant.cultivarname']}" exportHeaderValue="#{messages['livingplant.cultivarname']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.cultivarName}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.count']}">
+                            <p:column headerText="#{messages['livingplant.count']}" exportHeaderValue="#{messages['livingplant.count']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.count}" />
                             </p:column>
 
-                            <p:column headerText="#{messages['livingplant.price']}">
+                            <p:column headerText="#{messages['livingplant.price']}" exportHeaderValue="#{messages['livingplant.price']}">
                                 <h:outputText value="#{botanicalObjectDownloadResult.price}" />
                             </p:column>
 
