@@ -6,6 +6,24 @@ on:
   pull_request:
     branches: [ main, master, feature/next ]
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy after build?'
+        type: boolean
+        default: false
+      environment:
+        description: 'Environment to deploy to'
+        type: choice
+        options: [test, production]
+        default: test
+  workflow_call:
+    inputs:
+      deploy:
+        type: boolean
+        default: false
+      environment:
+        type: string
+        default: test
 
 jobs:
   build:
@@ -34,3 +52,7 @@ jobs:
         path: |
           **/target/*.jar
           **/target/*.war
+          jacq-birt/*.ttf
+          jacq-birt/*.rptdesign
+          jacq-*/target/*.jar
+          jacq-*/target/*.war
